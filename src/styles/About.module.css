@@ -1,0 +1,149 @@
+.aboutSection {
+  min-height: 100vh;
+  padding: var(--spacing-xl) 0;
+  background: var(--color-background);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.header h2 {
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: var(--color-secondary);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  align-items: start;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.imageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-background);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.bio p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+.timeline {
+  position: relative;
+}
+
+.timeline h3 {
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.timelineContainer {
+  position: relative;
+  padding-left: var(--spacing-lg);
+}
+
+.timelineContainer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-secondary);
+}
+
+.timelineItem {
+  position: relative;
+  margin-bottom: var(--spacing-xl);
+  padding-left: var(--spacing-lg);
+}
+
+.timelineItem::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-secondary);
+  border: 2px solid var(--color-background);
+}
+
+.year {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.timelineContent {
+  background: var(--color-background);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text);
+}
+
+.timelineContent h4 {
+  font-size: 1.3rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.timelineContent p {
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .header h2 {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+  }
+
+  .timeline h3 {
+    font-size: 1.8rem;
+  }
+
+  .timelineItem {
+    padding-left: var(--spacing-md);
+  }
+} 
