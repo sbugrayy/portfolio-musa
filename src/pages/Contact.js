@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Player } from '@lottiefiles/react-lottie-player';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import styles from '../styles/Contact.module.css';
 
 const Contact = () => {
@@ -65,10 +65,10 @@ const Contact = () => {
             className={styles.contactInfo}
           >
             <div className={styles.animationContainer}>
-              <Player
-                autoplay
+              <DotLottieReact
+                src="https://lottie.host/28c2f01a-887c-4d0b-a741-88baf2b3bd86/qDmOwasW9L.json"
                 loop
-                src="https://assets2.lottiefiles.com/packages/lf20_contact-form.json"
+                autoplay
                 style={{ height: '300px', width: '300px' }}
               />
             </div>
