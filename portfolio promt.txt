@@ -1,0 +1,85 @@
+Genel Proje Yapısı ve Hedefler:
+
+Teknoloji: React.js
+Hedef: Musa Yücesan'ın Tarih bölümü mezunu kimliğini, YouTube kanalını ve genel yeteneklerini yansıtan, modern, dinamik ve görsel olarak etkileyici bir portföy web sitesi oluşturmak.
+Tasarım Felsefesi: Minimalist ama etkileyici, detaylara önem veren, tarih ve anlatıcılık temalarını çağrıştıran bir tasarım. Örnek sitelerdeki (fominnalina.com, privatehistorian.net, chipie.design, lenasteinkuehler.com) estetikten ilham alınarak yaratıcı ve özgün bir stil oluşturulmalı.
+Sayfa Geçişleri: Aşağı doğru kaydırma (scroll) ile sayfalar arası geçiş sağlanmalı. Her sayfa bir section olarak düşünülebilir.
+Dinamiklik ve Animasyonlar:
+Sayfalar ve içerdikleri card'lar, scroll ile görünür hale geldiklerinde zarif animasyonlarla (örneğin fade-in, slide-up, scale-up gibi) gelmeli.
+JSON animasyonları (Lottie) projeye entegre edilmeli. Özellikle tarih temalı, hikaye anlatan animasyonlar kullanılmalı.
+Kod Kalitesi: Temiz, anlaşılır, modüler ve performans odaklı kod yazımı önceliklidir.
+Zorunlu Sayfalar ve İçerikleri:
+
+1. Home (Ana Sayfa):
+- Büyük, dikkat çekici bir başlık (örneğin "Musa Yücesan" ve altında "Tarihçi & Youtuber").
+- Kısa ve öz bir tanıtım metni.
+- Tarih temalı, soyut veya sanatsal bir arka plan görseli/animasyonu.
+- "Hakkımda" veya "Daha Fazlasını Keşfet" gibi bir CTA (Call to Action) butonu.
+- Kaydırma indikasyonu (örneğin aşağı ok veya "Scroll Down" metni).
+2. About (Hakkımda):
+- Musa Yücesan'ın fotoğrafı (örnek olarak bir yer tutucu kullanılabilir).
+- Eğitim geçmişi (Tarih bölümü mezuniyeti vurgusu).
+Kişisel ilgi alanları ve felsefesi (tarihe olan tutkusu, hikaye anlatıcılığı vb.).
+- YouTube kanalına bir vurgu ve bağlantı.
+- "Private Historian" sitesindeki gibi kronolojik bir akış veya zaman çizelgesi kullanılabilir.
+3. Skills (Yetenekler):
+- Tarihçilik ile ilgili yetenekler (araştırma, analiz, yorumlama, arşivcilik, Osmanlıca vb.).
+- Dijital yetenekler (video düzenleme, içerik oluşturma, web teknolojilerine aşinalık vb.).
+- Soft skill'ler (iletişim, problem çözme, yaratıcılık vb.).
+- Her bir yeteneğin görsel bir simge veya kısa bir açıklama ile sunulduğu dinamik kartlar.
+4. Portfolio (Portföy/Projeler):
+- YouTube kanalındaki seçili videolardan örnekler (küçük önizlemeler ve bağlantılar).
+- Varsa yazılı çalışmalar, makaleler, tezler.
+- "Private Historian" sitesindeki gibi projelerin detaylı sunumu ve görselleri.
+- Her bir proje için ayrı, üzerine gelindiğinde detay açan veya yeni bir sayfaya yönlendiren card'lar.
+5. Contact (İletişim):
+- E-posta adresi.
+- Sosyal medya bağlantıları (LinkedIn, YouTube, X/Twitter vb.).
+- Kısa bir iletişim formu (isteğe bağlı ama tercih edilir).
+- "Chipie.design" sitesindeki gibi yaratıcı bir iletişim alanı.
+Ek Sayfa Önerileri:
+
+1. Chronicles (Kronikler/Hikayeler): Musa Yücesan'ın kısa tarihsel anlatılarını, ilginç tarihi olayları veya kişisel tarih keşiflerini paylaştığı bir bölüm. Blog benzeri bir yapı olabilir.
+2. Insights (İçgörüler/Düşünceler): Tarihle ilgili derinlemesine düşüncelerini, güncel olayları tarih perspektifinden yorumladığı bir bölüm. Daha çok kişisel makaleler veya denemeler için.
+3. Collaborations (İş Birlikleri): Eğer varsa, başka kişilerle veya kurumlarla yaptığı iş birliklerini sergilediği bir sayfa.
+Styles Klasörü Zorunluluğu:
+
+- Kesinlikle Zorunlu: Tüm CSS kodları projenin ana dizininde bulunan src/styles/ klasörü altına yazılmalıdır.
+- src/styles/Global.css: Global stiller, fontlar, reset'ler.
+- src/styles/Home.module.css: Home sayfası için özel stiller.
+- src/styles/About.module.css: About sayfası için özel stiller.
+- ... ve her sayfa/bileşen için ayrı CSS modül dosyaları.
+- CSS değişkenleri (CSS variables) ve modern CSS özellikleri (Flexbox, Grid) aktif olarak kullanılmalı.
+- Duyarlı tasarım (Responsive Design) tüm cihazlarda mükemmel görünüm sağlamak için olmazsa olmazdır. Media query'ler kullanılmalı.
+JSON Animasyon Paketleri (Lottie) Hakkında Yapılabilecekler:
+
+Lottie, Adobe After Effects'te oluşturulan animasyonları JSON formatında dışa aktararak web, mobil ve React Native uygulamalarında kolayca kullanmanızı sağlayan harika bir kütüphanedir. Bu projede Lottie'yi şu şekillerde kullanabiliriz:
+
+1. Tarihsel Objelerin Animasyonları:
+- Kitap Açılması: Kullanıcının kaydırma çubuğunu aşağı kaydırdığında veya belirli bir bölüme geldiğinde bir kitabın yavaşça açılması ve içindeki boş sayfaların kalemle dolmaya başlaması animasyonu. Bu, Musa'nın bilgi ve hikaye üretme sürecini sembolize edebilir.
+- Harita Açılması/İşaretlenmesi: Eski bir haritanın yavaşça açılması veya belirli coğrafi noktaların işaretlenmesi. Musa'nın tarihsel coğrafya veya keşiflere olan ilgisini vurgulayabilir.
+- Mürekkep Damlası/Kalem Hareketi: Bir mürekkep damlasının yayılması veya bir kalemin yazı yazma hareketi. Bilginin ve yazının önemini vurgular.
+- Zaman Çarkı/Kum Saati: Tarihin akışını veya zamanın geçişini sembolize eden animasyonlar.
+2. Geçiş Animasyonları: Sayfalar arası geçişlerde veya bir bölümden diğerine geçerken Lottie animasyonlarını kullanmak. Örneğin, bir sayfa kaybolurken eski bir parşömen gibi kıvrılıp açılan bir sonraki sayfa.
+3. Simgeler ve İllüstrasyonlar: Geleneksel statik simgeler yerine, Lottie ile hareketli ve daha etkileşimli simgeler kullanılabilir. Örneğin, bir "YouTube" simgesi tıklandığında hafifçe canlanabilir veya "İletişim" simgesi bir mektup zarfının açılıp kapanması gibi hareket edebilir.
+4. Arka Plan Animasyonları: Çok hafif ve soyut Lottie animasyonları, belirli bölümlerin arka planında döngüsel olarak oynayarak sayfaya dinamik bir hava katabilir.
+5. Hover (Üzerine Gelme) Efektleri: Card'ların veya butonların üzerine gelindiğinde tetiklenen küçük Lottie animasyonları ile kullanıcı deneyimi zenginleştirilebilir.
+Lottie Kullanımı İçin Kaynaklar:
+
+- LottieFiles: Ücretsiz ve ücretli birçok hazır Lottie animasyonunu bulabileceğiniz ana platform. İstediğiniz anahtar kelimelerle arama yapabilir, hatta kendi After Effects animasyonlarınızı yükleyip JSON'a dönüştürebilirsiniz. (https://lottiefiles.com/)
+- React Lottie Kütüphaneleri: React projelerinde Lottie animasyonlarını kolayca entegre etmek için react-lottie veya @lottiefiles/react-lottie-player gibi kütüphaneler mevcuttur.
+Tasarım Mükemmelliği İçin Ek Öneriler:
+
+- Tipografi: Tarih temasını yansıtan, okunaklı ve estetik fontlar seçilmelidir. Başlıklar için güçlü, okunması kolay bir serif (tırnaklı) font, gövde metinleri için modern ve temiz bir sans-serif (tırnaksız) font kombinasyonu düşünülebilir. (Google Fonts'tan seçim yapılabilir).
+- Renk Paleti: Toprak tonları, eskitme kağıt renkleri, koyu lacivertler, altın sarısı gibi tarihsel ve sofistike renkler kullanılabilir. Az sayıda ana renk ve aksan rengi belirleyerek tutarlı bir görünüm sağlanmalı.
+- Boşluk Kullanımı: Beyaz alanların (negatif alan) etkili kullanımı, sayfanın daha düzenli ve şık görünmesini sağlar. Öğeler arasında yeterli boşluk bırakılmalı.
+- Görsel Hiyerarşi: Başlıklar, alt başlıklar ve metinler arasında net bir görsel hiyerarşi oluşturularak kullanıcıya neyin önemli olduğu rahatça gösterilmeli.
+- Mikro Etkileşimler: Butonların, bağlantıların veya card'ların üzerine gelindiğinde oluşan küçük görsel geri bildirimler (renk değişimi, hafif bir yükselme vb.) kullanıcı deneyimini zenginleştirir.
+- Erişilebilirlik (Accessibility): Renk kontrastları, klavye navigasyonu ve ekran okuyucu uyumluluğu gibi erişilebilirlik standartları göz önünde bulundurulmalı.
+- Performans: Görsel ağırlığına rağmen hızlı yüklenen ve akıcı çalışan bir site olmalı. Görsel optimizasyonları (webp formatı, sıkıştırma) ve lazy loading (tembel yükleme) gibi teknikler kullanılmalı.
+
+Cursor AI, yukarıdaki detayları dikkate alarak, React tabanlı, modüler bir portföy projesi oluşturmanı istiyorum. 
+Özellikle src/styles/ klasörü altında her component ve sayfa için ayrı CSS modül dosyaları oluşturarak stil kodlarını buraya yerleştirdiğinden emin ol. 
+Kaydırma tabanlı sayfa geçişleri ve Lottie JSON animasyonları için gerekli kütüphaneleri kur ve örnek implementasyonları göster. 
+Her bölüm, sayfa veya kart, görünür olduğunda animasyonlarla gelmeli. 
+Tasarımın modern, temiz ve Musa Yücesan'ın kişiliğini yansıtan estetik bir çizgide olduğundan emin ol.
