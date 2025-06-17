@@ -15,7 +15,7 @@ import './styles/global.css';
 const AppContainer = styled.div`
   display: flex;
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   overflow-x: hidden;
 `;
 
@@ -23,13 +23,13 @@ const MainContent = styled.main`
   flex: 1;
   margin-left: 280px;
   padding: 2rem;
-  width: 100vw;
+  width: 100%;
   overflow-x: hidden;
 
   @media (max-width: 768px) {
     margin-left: 0;
     padding: 0.5rem 0.5rem 1rem 0.5rem;
-    width: 100vw;
+    width: 100%;
   }
 `;
 

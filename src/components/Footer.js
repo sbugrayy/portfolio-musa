@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaYoutube, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const FooterContainer = styled.footer`
   background-color: var(--card-bg);
@@ -16,6 +15,10 @@ const FooterContainer = styled.footer`
 const Copyright = styled.div`
   color: var(--text-color);
   font-size: 0.9rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.6rem;
+  }
 `;
 
 const FooterLinks = styled.div`
@@ -37,29 +40,15 @@ const FooterLink = styled.button`
   &:hover {
     color: var(--primary-color);
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.6rem;
+  }
 `;
 
 const Separator = styled.span`
   color: var(--text-color);
   font-size: 0.9rem;
-`;
-
-const SocialLinks = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-`;
-
-const SocialLink = styled(motion.a)`
-  color: var(--text-color);
-  font-size: 1.5rem;
-  transition: all var(--transition-speed) ease;
-
-  &:hover {
-    color: var(--primary-color);
-    transform: translateY(-3px);
-  }
 `;
 
 const Modal = styled(motion.div)`
@@ -85,24 +74,6 @@ const ModalContent = styled(motion.div)`
   overflow-y: auto;
   position: relative;
   text-align: left;
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  color: var(--text-color);
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  transition: all var(--transition-speed) ease;
-
-  &:hover {
-    color: var(--primary-color);
-    transform: scale(1.1);
-  }
 `;
 
 const ModalTitle = styled.h2`

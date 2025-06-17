@@ -35,23 +35,12 @@ const GlobalStyles = createGlobalStyle`
     color: var(--text-color);
     transition: background-color var(--transition-speed) ease,
                 color var(--transition-speed) ease;
+    overflow-x: hidden;
   }
 
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  button {
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: none;
-  }
-
-  /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   /* Custom scrollbar */
@@ -70,6 +59,18 @@ const GlobalStyles = createGlobalStyle`
 
   ::-webkit-scrollbar-thumb:hover {
     background: #ff8c5a;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
   }
 `;
 
