@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaSun, FaMoon, FaYoutube, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaSun, FaMoon, FaYoutube, FaInstagram, FaLinkedin, FaBars, FaTimes } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 
 const SidebarContainer = styled(motion.aside)`
@@ -20,12 +20,16 @@ const SidebarContainer = styled(motion.aside)`
   transition: all var(--transition-speed) ease;
 
   @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
-    position: relative;
-    padding: 0.5rem 0.5rem 1rem 0.5rem;
-    min-height: unset;
-    box-shadow: none;
+    width: 80vw;
+    max-width: 320px;
+    height: 100vh;
+    position: fixed;
+    left: ${({ open }) => (open ? '0' : '-100vw')};
+    top: 0;
+    padding: 2rem 1rem 1rem 1rem;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    transition: left 0.3s var(--transition-speed), box-shadow 0.3s;
+    z-index: 1100;
   }
 `;
 
@@ -49,13 +53,6 @@ const ThemeToggle = styled(motion.button)`
     color: var(--primary-color);
     transform: scale(1.1);
   }
-
-  @media (max-width: 768px) {
-    top: 0.5rem;
-    right: 0.5rem;
-    font-size: 1.2rem;
-    padding: 0.3rem;
-  }
 `;
 
 const ProfileImageContainer = styled.div`
@@ -77,12 +74,6 @@ const ProfileImageContainer = styled.div`
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
-
-  @media (max-width: 768px) {
-    width: 90px;
-    height: 90px;
-    margin-bottom: 1rem;
-  }
 `;
 
 const ProfileImage = styled.img`
@@ -98,11 +89,6 @@ const Name = styled(motion.h1)`
   margin-bottom: 2rem;
   text-align: center;
   font-weight: 600;
-
-  @media (max-width: 768px) {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-  }
 `;
 
 const NavLinks = styled.nav`
@@ -111,11 +97,6 @@ const NavLinks = styled.nav`
   gap: 1rem;
   width: 100%;
   margin-bottom: 2rem;
-
-  @media (max-width: 768px) {
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
 `;
 
 const NavLink = styled(motion.a)`
@@ -148,11 +129,6 @@ const NavLink = styled(motion.a)`
   &:hover::after {
     width: 80%;
   }
-
-  @media (max-width: 768px) {
-    font-size: 0.95rem;
-    padding: 0.3rem 0.5rem;
-  }
 `;
 
 const SocialLinks = styled.div`
@@ -163,11 +139,6 @@ const SocialLinks = styled.div`
   border-top: 1px solid var(--border-color);
   width: 100%;
   justify-content: center;
-
-  @media (max-width: 768px) {
-    gap: 0.8rem;
-    padding-top: 1rem;
-  }
 `;
 
 const SocialLink = styled(motion.a)`
@@ -179,14 +150,57 @@ const SocialLink = styled(motion.a)`
     color: var(--primary-color);
     transform: translateY(-3px);
   }
+`;
 
+const HamburgerButton = styled.button`
+  display: none;
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 1100;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 2rem;
+  cursor: pointer;
   @media (max-width: 768px) {
-    font-size: 1.1rem;
+    display: block;
+  }
+`;
+
+const MobileSidebarOverlay = styled(motion.div)`
+  display: none;
+  @media (max-width: 768px) {
+    display: ${({ open }) => (open ? 'block' : 'none')};
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    z-index: 1099;
+  }
+`;
+
+const CloseButton = styled.button`
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1101;
   }
 `;
 
 const Sidebar = () => {
   const { isDarkMode, toggleTheme } = useTheme();
+  const [open, setOpen] = useState(false);
   
   const navItems = [
     { name: 'Anasayfa', id: 'home' },
@@ -197,69 +211,90 @@ const Sidebar = () => {
     { name: 'İletişim', id: 'contact' }
   ];
 
+  // Menüden bir linke tıklanınca sidebar'ı kapat
+  const handleNavClick = () => {
+    setOpen(false);
+  };
+
   return (
-    <SidebarContainer
-      initial={{ x: -300 }}
-      animate={{ x: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <ThemeToggle
-        onClick={toggleTheme}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
+    <>
+      {/* Hamburger butonu sadece mobilde */}
+      <HamburgerButton onClick={() => setOpen(true)}>
+        <FaBars />
+      </HamburgerButton>
+      {/* Mobilde arka plan overlay */}
+      <MobileSidebarOverlay
+        open={open}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: open ? 1 : 0 }}
+        transition={{ duration: 0.2 }}
+        onClick={() => setOpen(false)}
+      />
+      <SidebarContainer
+        open={open}
+        initial={{ x: -300 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        {isDarkMode ? <FaSun /> : <FaMoon />}
-      </ThemeToggle>
-
-      <ProfileImageContainer>
-        <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
-      </ProfileImageContainer>
-
-      <Name>Musa Yücesan</Name>
-
-      <NavLinks>
-        {navItems.map((item) => (
-          <NavLink
-            key={item.id}
-            href={`#${item.id}`}
-            whileHover={{ scale: 1.05 }}
+        {/* Kapatma butonu sadece mobilde */}
+        <CloseButton onClick={() => setOpen(false)}>
+          <FaTimes />
+        </CloseButton>
+        <ThemeToggle
+          onClick={toggleTheme}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isDarkMode ? <FaSun /> : <FaMoon />}
+        </ThemeToggle>
+        <ProfileImageContainer>
+          <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
+        </ProfileImageContainer>
+        <Name>Musa Yücesan</Name>
+        <NavLinks>
+          {navItems.map((item) => (
+            <NavLink
+              key={item.id}
+              href={`#${item.id}`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleNavClick}
+            >
+              {item.name}
+            </NavLink>
+          ))}
+        </NavLinks>
+        <SocialLinks>
+          <SocialLink
+            href="https://youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            {item.name}
-          </NavLink>
-        ))}
-      </NavLinks>
-
-      <SocialLinks>
-        <SocialLink
-          href="https://youtube.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaYoutube />
-        </SocialLink>
-        <SocialLink
-          href="https://instagram.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaInstagram />
-        </SocialLink>
-        <SocialLink
-          href="https://linkedin.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaLinkedin />
-        </SocialLink>
-      </SocialLinks>
-    </SidebarContainer>
+            <FaYoutube />
+          </SocialLink>
+          <SocialLink
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <FaInstagram />
+          </SocialLink>
+          <SocialLink
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <FaLinkedin />
+          </SocialLink>
+        </SocialLinks>
+      </SidebarContainer>
+    </>
   );
 };
 
