@@ -76,4 +76,4 @@ MIT
 
 Buğra Yıldırım - [@bugrayildirim](www.linkedin.com/in/buğra-yıldırım)
 
-Proje Linki: [https://github.com/sbugrayy/portfolio-musa](https://github.com/yourusername/portfolio-musa)
+Proje Linki: [https://github.com/sbugrayy/portfolio-musa](https://github.com/sbugrayy/portfolio-musa)
