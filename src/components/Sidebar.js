@@ -30,6 +30,7 @@ const SidebarContainer = styled(motion.aside)`
     box-shadow: 2px 0 10px rgba(0,0,0,0.2);
     transition: left 0.3s var(--transition-speed), box-shadow 0.3s;
     z-index: 1100;
+    display: ${({ open }) => (open ? 'flex' : 'none')};
   }
 `;
 

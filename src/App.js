@@ -15,16 +15,21 @@ import './styles/global.css';
 const AppContainer = styled.div`
   display: flex;
   min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
 `;
 
 const MainContent = styled.main`
   flex: 1;
   margin-left: 280px;
   padding: 2rem;
+  width: 100vw;
+  overflow-x: hidden;
 
   @media (max-width: 768px) {
     margin-left: 0;
-    padding: 1rem;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+    width: 100vw;
   }
 `;
 
@@ -34,6 +39,10 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    padding: 1rem 0 1.5rem 0;
+  }
 `;
 
 function App() {
@@ -46,23 +55,18 @@ function App() {
           <Section id="home">
             <Home />
           </Section>
-          
           <Section id="about">
             <About />
           </Section>
-          
           <Section id="what-i-do">
             <WhatIDo />
           </Section>
-          
           <Section id="resume">
             <Resume />
           </Section>
-          
           <Section id="portfolio">
             <Portfolio />
           </Section>
-          
           <Section id="contact">
             <Contact />
           </Section>
