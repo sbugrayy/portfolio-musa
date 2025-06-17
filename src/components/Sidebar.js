@@ -30,6 +30,16 @@ const SidebarContainer = styled(motion.aside)`
     box-shadow: 2px 0 10px rgba(0,0,0,0.2);
     transition: left 0.3s var(--transition-speed), box-shadow 0.3s;
     z-index: 1100;
+    display: ${({ open }) => (open ? 'flex' : 'none')};
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    border-top: 0.5px solid var(--border-color);
+    width: 100%;
+    justify-content: center;
   }
 `;
 
@@ -151,7 +161,11 @@ const SocialLinks = styled.div`
   justify-content: center;
 
   @media (max-width: 768px) {
-    padding-top: 0.5rem;
+    padding-top: 1.5rem;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    border-top: 0.5px solid var(--border-color);
   }
 `;
 
