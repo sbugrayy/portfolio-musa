@@ -198,17 +198,17 @@ const ProjectCategory = styled.span`
 const videos = [
   {
     id: 1,
-    title: 'Video 1',
+    title: 'Stalin Ve Troçki Mücadelesi',
     url: 'https://www.youtube.com/embed/1Hzvit2xBtQ?si=lIgOYSR8KggOVOtW'
   },
   {
     id: 2,
-    title: 'Video 2',
+    title: 'Büyük Moğol Genarali Subutay Hakkında Bilinmeyenler',
     url: 'https://www.youtube.com/embed/sNY8LafYKP8?si=KBU7b6UBG8HzzBvL'
   },
   {
     id: 3,
-    title: 'Video 3',
+    title: 'Çini Felakete Sürükleyen Serçeler',
     url: 'https://www.youtube.com/embed/Y_2h0isoIhU?si=T2hhJcraYdTSxmuE'
   }
 ];
