@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaYoutube, FaFilter } from 'react-icons/fa';
+import { FaFilter } from 'react-icons/fa';
 
 const PortfolioContainer = styled.section`
   padding: 4rem 0;

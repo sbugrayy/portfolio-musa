@@ -36,7 +36,7 @@ const SidebarContainer = styled(motion.aside)`
 const ThemeToggle = styled(motion.button)`
   position: absolute;
   top: 1.5rem;
-  right: 1.5rem;
+  left: 1.5rem;
   background: none;
   border: none;
   color: var(--text-color);
@@ -47,11 +47,16 @@ const ThemeToggle = styled(motion.button)`
   align-items: center;
   justify-content: center;
   transition: all var(--transition-speed) ease;
-  z-index: 1001;
+  z-index: 1101;
 
   &:hover {
     color: var(--primary-color);
     transform: scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    left: 1.5rem;
+    top: 1.5rem;
   }
 `;
 
@@ -236,10 +241,7 @@ const Sidebar = () => {
         animate={{ x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Kapatma butonu sadece mobilde */}
-        <CloseButton onClick={() => setOpen(false)}>
-          <FaTimes />
-        </CloseButton>
+        {/* Tema butonu sol üstte */}
         <ThemeToggle
           onClick={toggleTheme}
           whileHover={{ scale: 1.1 }}
@@ -247,6 +249,10 @@ const Sidebar = () => {
         >
           {isDarkMode ? <FaSun /> : <FaMoon />}
         </ThemeToggle>
+        {/* Kapatma butonu sadece mobilde */}
+        <CloseButton onClick={() => setOpen(false)}>
+          <FaTimes />
+        </CloseButton>
         <ProfileImageContainer>
           <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
         </ProfileImageContainer>
