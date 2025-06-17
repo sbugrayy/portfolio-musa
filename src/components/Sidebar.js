@@ -102,6 +102,11 @@ const NavLinks = styled.nav`
   gap: 1rem;
   width: 100%;
   margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const NavLink = styled(motion.a)`
@@ -144,6 +149,10 @@ const SocialLinks = styled.div`
   border-top: 1px solid var(--border-color);
   width: 100%;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    padding-top: 0.5rem;
+  }
 `;
 
 const SocialLink = styled(motion.a)`
