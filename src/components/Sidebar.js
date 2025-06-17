@@ -23,7 +23,9 @@ const SidebarContainer = styled(motion.aside)`
     width: 100%;
     height: auto;
     position: relative;
-    padding: 1rem;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+    min-height: unset;
+    box-shadow: none;
   }
 `;
 
@@ -47,6 +49,13 @@ const ThemeToggle = styled(motion.button)`
     color: var(--primary-color);
     transform: scale(1.1);
   }
+
+  @media (max-width: 768px) {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1.2rem;
+    padding: 0.3rem;
+  }
 `;
 
 const ProfileImageContainer = styled.div`
@@ -68,6 +77,12 @@ const ProfileImageContainer = styled.div`
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
+
+  @media (max-width: 768px) {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 1rem;
+  }
 `;
 
 const ProfileImage = styled.img`
@@ -83,6 +98,11 @@ const Name = styled(motion.h1)`
   margin-bottom: 2rem;
   text-align: center;
   font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const NavLinks = styled.nav`
@@ -91,6 +111,11 @@ const NavLinks = styled.nav`
   gap: 1rem;
   width: 100%;
   margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const NavLink = styled(motion.a)`
@@ -123,6 +148,11 @@ const NavLink = styled(motion.a)`
   &:hover::after {
     width: 80%;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+    padding: 0.3rem 0.5rem;
+  }
 `;
 
 const SocialLinks = styled.div`
@@ -133,6 +163,11 @@ const SocialLinks = styled.div`
   border-top: 1px solid var(--border-color);
   width: 100%;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    gap: 0.8rem;
+    padding-top: 1rem;
+  }
 `;
 
 const SocialLink = styled(motion.a)`
@@ -143,6 +178,10 @@ const SocialLink = styled(motion.a)`
   &:hover {
     color: var(--primary-color);
     transform: translateY(-3px);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
   }
 `;
 
