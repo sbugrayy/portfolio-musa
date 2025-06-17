@@ -102,7 +102,7 @@ const skills = [
     name: 'Tasarım',
     icon: <FaPalette />,
     level: 82,
-    description: 'Tarihi motifleri modern tasarımlarla harmanlama yeteneği.'
+    description: 'Tarihi motifleri modern tasarımlarla harmanlama yeteneği ve tasarım deneyimi.'
   },
 ];
 
