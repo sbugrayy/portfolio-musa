@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaSun, FaMoon, FaYoutube, FaInstagram, FaLinkedin, FaBars, FaTimes } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 
@@ -235,85 +235,109 @@ const Sidebar = () => {
     setOpen(false);
   };
 
+  // Animasyon varyantları (sadece mobilde kullanılacak)
+  const sidebarVariants = {
+    hidden: { x: '-100%' },
+    visible: { x: 0 },
+    exit: { x: '-100%' }
+  };
+  const overlayVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+    exit: { opacity: 0 }
+  };
+
   return (
     <>
       {/* Hamburger butonu sadece mobilde */}
       <HamburgerButton onClick={() => setOpen(true)}>
         <FaBars />
       </HamburgerButton>
-      {/* Mobilde arka plan overlay */}
-      <MobileSidebarOverlay
-        open={open}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: open ? 1 : 0 }}
-        transition={{ duration: 0.2 }}
-        onClick={() => setOpen(false)}
-      />
-      <SidebarContainer
-        open={open}
-        initial={{ x: -300 }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* Tema butonu sol üstte */}
-        <ThemeToggle
-          onClick={toggleTheme}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {isDarkMode ? <FaSun /> : <FaMoon />}
-        </ThemeToggle>
-        {/* Kapatma butonu sadece mobilde */}
-        <CloseButton onClick={() => setOpen(false)}>
-          <FaTimes />
-        </CloseButton>
-        <ProfileImageContainer>
-          <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
-        </ProfileImageContainer>
-        <Name>Musa Yücesan</Name>
-        <NavLinks>
-          {navItems.map((item) => (
-            <NavLink
-              key={item.id}
-              href={`#${item.id}`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleNavClick}
+      {/* Mobilde arka plan overlay ve sidebar animasyonlu şekilde açılıp kapanır */}
+      <AnimatePresence>
+        {open && (
+          <>
+            <MobileSidebarOverlay
+              as={motion.div}
+              variants={overlayVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{ duration: 0.2 }}
+              onClick={() => setOpen(false)}
+              open={open}
+            />
+            <SidebarContainer
+              as={motion.aside}
+              variants={sidebarVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              open={open}
             >
-              {item.name}
-            </NavLink>
-          ))}
-        </NavLinks>
-        <SocialLinks>
-          <SocialLink
-            href="https://youtube.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FaYoutube />
-          </SocialLink>
-          <SocialLink
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FaInstagram />
-          </SocialLink>
-          <SocialLink
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FaLinkedin />
-          </SocialLink>
-        </SocialLinks>
-      </SidebarContainer>
+              {/* Tema butonu sol üstte */}
+              <ThemeToggle
+                onClick={toggleTheme}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {isDarkMode ? <FaSun /> : <FaMoon />}
+              </ThemeToggle>
+              {/* Kapatma butonu sadece mobilde */}
+              <CloseButton onClick={() => setOpen(false)}>
+                <FaTimes />
+              </CloseButton>
+              <ProfileImageContainer>
+                <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
+              </ProfileImageContainer>
+              <Name>Musa Yücesan</Name>
+              <NavLinks>
+                {navItems.map((item) => (
+                  <NavLink
+                    key={item.id}
+                    href={`#${item.id}`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleNavClick}
+                  >
+                    {item.name}
+                  </NavLink>
+                ))}
+              </NavLinks>
+              <SocialLinks>
+                <SocialLink
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FaYoutube />
+                </SocialLink>
+                <SocialLink
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FaInstagram />
+                </SocialLink>
+                <SocialLink
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FaLinkedin />
+                </SocialLink>
+              </SocialLinks>
+            </SidebarContainer>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 };
