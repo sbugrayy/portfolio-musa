@@ -27,7 +27,13 @@ const Card = styled.div`
   background-color: var(--card-bg);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 100%;
+  width: 75%;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0;
+  }
 `;
 
 const VideoCard = styled(Card)`
