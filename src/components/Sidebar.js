@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaSun, FaMoon, FaYoutube, FaInstagram, FaLinkedin, FaBars, FaTimes } from 'react-icons/fa';
@@ -220,6 +220,7 @@ const CloseButton = styled.button`
 const Sidebar = () => {
   const { isDarkMode, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   
   const navItems = [
     { name: 'Anasayfa', id: 'home' },
@@ -230,12 +231,24 @@ const Sidebar = () => {
     { name: 'İletişim', id: 'contact' }
   ];
 
+  // Ekran boyutunu dinle
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth > 768) {
+        setOpen(false); // Masaüstüne geçince sidebar'ı kapalı tut
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Menüden bir linke tıklanınca sidebar'ı kapat
   const handleNavClick = () => {
     setOpen(false);
   };
 
-  // Animasyon varyantları (sadece mobilde kullanılacak)
+  // Mobil animasyon varyantları
   const sidebarVariants = {
     hidden: { x: '-100%' },
     visible: { x: 0 },
@@ -250,94 +263,152 @@ const Sidebar = () => {
   return (
     <>
       {/* Hamburger butonu sadece mobilde */}
-      <HamburgerButton onClick={() => setOpen(true)}>
-        <FaBars />
-      </HamburgerButton>
-      {/* Mobilde arka plan overlay ve sidebar animasyonlu şekilde açılıp kapanır */}
-      <AnimatePresence>
-        {open && (
-          <>
-            <MobileSidebarOverlay
-              as={motion.div}
-              variants={overlayVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              transition={{ duration: 0.2 }}
-              onClick={() => setOpen(false)}
-              open={open}
-            />
-            <SidebarContainer
-              as={motion.aside}
-              variants={sidebarVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              transition={{ duration: 0.4, ease: 'easeInOut' }}
-              open={open}
-            >
-              {/* Tema butonu sol üstte */}
-              <ThemeToggle
-                onClick={toggleTheme}
-                whileHover={{ scale: 1.1 }}
+      {isMobile && (
+        <HamburgerButton onClick={() => setOpen(true)}>
+          <FaBars />
+        </HamburgerButton>
+      )}
+      {/* Mobilde animasyonlu sidebar ve overlay */}
+      {isMobile ? (
+        <AnimatePresence>
+          {open && (
+            <>
+              <MobileSidebarOverlay
+                as={motion.div}
+                variants={overlayVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.2 }}
+                onClick={() => setOpen(false)}
+                open={open}
+              />
+              <SidebarContainer
+                as={motion.aside}
+                variants={sidebarVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                open={open}
+              >
+                <ThemeToggle
+                  onClick={toggleTheme}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {isDarkMode ? <FaSun /> : <FaMoon />}
+                </ThemeToggle>
+                <CloseButton onClick={() => setOpen(false)}>
+                  <FaTimes />
+                </CloseButton>
+                <ProfileImageContainer>
+                  <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
+                </ProfileImageContainer>
+                <Name>Musa Yücesan</Name>
+                <NavLinks>
+                  {navItems.map((item) => (
+                    <NavLink
+                      key={item.id}
+                      href={`#${item.id}`}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={handleNavClick}
+                    >
+                      {item.name}
+                    </NavLink>
+                  ))}
+                </NavLinks>
+                <SocialLinks>
+                  <SocialLink
+                    href="https://youtube.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaYoutube />
+                  </SocialLink>
+                  <SocialLink
+                    href="https://instagram.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaInstagram />
+                  </SocialLink>
+                  <SocialLink
+                    href="https://linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaLinkedin />
+                  </SocialLink>
+                </SocialLinks>
+              </SidebarContainer>
+            </>
+          )}
+        </AnimatePresence>
+      ) : (
+        // Masaüstü: animasyonsuz klasik sidebar
+        <SidebarContainer open>
+          <ThemeToggle
+            onClick={toggleTheme}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isDarkMode ? <FaSun /> : <FaMoon />}
+          </ThemeToggle>
+          <ProfileImageContainer>
+            <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
+          </ProfileImageContainer>
+          <Name>Musa Yücesan</Name>
+          <NavLinks>
+            {navItems.map((item) => (
+              <NavLink
+                key={item.id}
+                href={`#${item.id}`}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {isDarkMode ? <FaSun /> : <FaMoon />}
-              </ThemeToggle>
-              {/* Kapatma butonu sadece mobilde */}
-              <CloseButton onClick={() => setOpen(false)}>
-                <FaTimes />
-              </CloseButton>
-              <ProfileImageContainer>
-                <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
-              </ProfileImageContainer>
-              <Name>Musa Yücesan</Name>
-              <NavLinks>
-                {navItems.map((item) => (
-                  <NavLink
-                    key={item.id}
-                    href={`#${item.id}`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={handleNavClick}
-                  >
-                    {item.name}
-                  </NavLink>
-                ))}
-              </NavLinks>
-              <SocialLinks>
-                <SocialLink
-                  href="https://youtube.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FaYoutube />
-                </SocialLink>
-                <SocialLink
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FaInstagram />
-                </SocialLink>
-                <SocialLink
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FaLinkedin />
-                </SocialLink>
-              </SocialLinks>
-            </SidebarContainer>
-          </>
-        )}
-      </AnimatePresence>
+                {item.name}
+              </NavLink>
+            ))}
+          </NavLinks>
+          <SocialLinks>
+            <SocialLink
+              href="https://youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaYoutube />
+            </SocialLink>
+            <SocialLink
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaInstagram />
+            </SocialLink>
+            <SocialLink
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaLinkedin />
+            </SocialLink>
+          </SocialLinks>
+        </SidebarContainer>
+      )}
     </>
   );
 };
