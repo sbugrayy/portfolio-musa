@@ -199,17 +199,17 @@ const videos = [
   {
     id: 1,
     title: 'Video 1',
-    url: 'https://www.youtube.com/embed/VIDEO_ID_1'
+    url: 'https://www.youtube.com/embed/1Hzvit2xBtQ?si=lIgOYSR8KggOVOtW'
   },
   {
     id: 2,
     title: 'Video 2',
-    url: 'https://www.youtube.com/embed/VIDEO_ID_2'
+    url: 'https://www.youtube.com/embed/sNY8LafYKP8?si=KBU7b6UBG8HzzBvL'
   },
   {
     id: 3,
     title: 'Video 3',
-    url: 'https://www.youtube.com/embed/VIDEO_ID_3'
+    url: 'https://www.youtube.com/embed/Y_2h0isoIhU?si=T2hhJcraYdTSxmuE'
   }
 ];
 
