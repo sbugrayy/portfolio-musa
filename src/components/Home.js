@@ -78,7 +78,7 @@ const Home = () => {
         transition={{ duration: 0.8 }}
       >
         <Title>Musa Yücesan</Title>
-        <Subtitle>ASBÜ İngilizce Tarih Mezunu & Deri El İşçiliği Sanatçısı</Subtitle>
+        <Subtitle>ASBÜ Tarih (İngilizce) Mezunu & Deri El İşçiliği Sanatçısı</Subtitle>
         <ScrollButton
           onClick={scrollToAbout}
           initial={{ opacity: 0 }}
