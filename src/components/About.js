@@ -87,20 +87,30 @@ const About = () => {
       >
         <TextBlock variants={itemVariants}>
           <Paragraph>
-            ASBÜ İngilizce Tarih bölümünden mezun oldum. Tarih alanındaki eğitimim,
-            geçmiş kültürleri ve medeniyetleri derinlemesine anlamamı sağladı.
-            Bu bilgi birikimi, deri el işçiliği sanatıma da yansıyarak,
-            modern teknikleri geleneksel desenlerle harmanlamama olanak tanıyor.
+            ASBÜ Tarih (İngilizce) bölümünden mezun oldum.
+            Ben, entelektüel tarih ve modernleşme süreçleri üzerine yoğunlaşan bir araştırmacı adayıyım.
+            Akademik ilgim özellikle Osmanlı-Türkiye modernleşmesi, 17. ve 18. yüzyıl Osmanlı düşünce tarihi,
+            Kemalist ideoloji ve sol çevreler arasındaki ilişkiler üzerine odaklanmaktadır.
+            Lisans tez çalışmamda, 1921-1925 yılları arasında Aydınlık çevresi ile Ankara hükümeti arasındaki ideolojik ve politik etkileşimi inceleyerek,
+            dönemin siyasi düşünce yapılarının dönüşümüne katkı sunmayı hedefledim.
+            Tarihsel belgelerin analizi, düşünsel tartışmaların izini sürme ve çok dilli kaynak taraması konularında yetkinleşmeye çalışıyor; 
+            bu kapsamda akademik İngilizce’nin yanı sıra Osmanlı Türkçesi ve akademik düzeyde Rusça öğrenimine ağırlık veriyorum.
+            Araştırmalarımda tarih yazımı, siyasi düşünce tarihi ve entelektüel çevrelerin rolü gibi tematik alanları önceliklendiriyorum.
+        
+             
+          
+            
           </Paragraph>
         </TextBlock>
 
         <TextBlock variants={itemVariants}>
           <Paragraph>
-            Deri el işçiliği benim için sadece bir hobi değil, aynı zamanda
-            bir tutku. Her bir parçayı özenle işleyerek, geçmişin izlerini
-            modern tasarımlarla buluşturuyorum. Deri ürünlerimde, tarihi
-            motifleri çağdaş bir yorumla ele alarak, her bir parçaya özgün
-            bir karakter kazandırıyorum.
+            Akademik çalışmalarımın yanında, zanaatla da ilgilenmekteyim.
+            Dericilikle amatör düzeyde uğraşıyor;
+            el yapımı cüzdan ve benzeri ürünler tasarlayıp üretmekteyim.
+            Bu yönelim, hem üretim estetiği hem de tarihsel zanaat kültürüne olan ilgimi besleyen önemli bir uğraştır.
+            Araştırmacı merakı, tarihsel sezgi ve üretkenlik ilkeleri doğrultusunda akademik ve sanatsal yönlerimi bir arada geliştirerek,
+            özgün ve disiplinlerarası bir perspektif kazandırmaya çalışıyorum.
           </Paragraph>
         </TextBlock>
       </Content>
