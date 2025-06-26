@@ -283,7 +283,7 @@ const Sidebar = () => {
                 onClick={() => setOpen(false)}
                 open={open}
               />
-              <SidebarContainer
+    <SidebarContainer
                 as={motion.aside}
                 variants={sidebarVariants}
                 initial="hidden"
@@ -291,14 +291,14 @@ const Sidebar = () => {
                 exit="exit"
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
                 open={open}
-              >
-                <ThemeToggle
-                  onClick={toggleTheme}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {isDarkMode ? <FaSun /> : <FaMoon />}
-                </ThemeToggle>
+    >
+      <ThemeToggle
+        onClick={toggleTheme}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {isDarkMode ? <FaSun /> : <FaMoon />}
+      </ThemeToggle>
                 <CloseButton onClick={() => setOpen(false)}>
                   <FaTimes />
                 </CloseButton>
@@ -362,52 +362,52 @@ const Sidebar = () => {
           >
             {isDarkMode ? <FaSun /> : <FaMoon />}
           </ThemeToggle>
-          <ProfileImageContainer>
-            <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
-          </ProfileImageContainer>
-          <Name>Musa Yücesan</Name>
-          <NavLinks>
-            {navItems.map((item) => (
-              <NavLink
-                key={item.id}
-                href={`#${item.id}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {item.name}
-              </NavLink>
-            ))}
-          </NavLinks>
-          <SocialLinks>
-            <SocialLink
-              href="https://youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <FaYoutube />
-            </SocialLink>
-            <SocialLink
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <FaInstagram />
-            </SocialLink>
-            <SocialLink
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <FaLinkedin />
-            </SocialLink>
-          </SocialLinks>
-        </SidebarContainer>
+      <ProfileImageContainer>
+        <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
+      </ProfileImageContainer>
+      <Name>Musa Yücesan</Name>
+      <NavLinks>
+        {navItems.map((item) => (
+          <NavLink
+            key={item.id}
+            href={`#${item.id}`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {item.name}
+          </NavLink>
+        ))}
+      </NavLinks>
+      <SocialLinks>
+        <SocialLink
+          href="https://youtube.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FaYoutube />
+        </SocialLink>
+        <SocialLink
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FaInstagram />
+        </SocialLink>
+        <SocialLink
+          href="https://linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FaLinkedin />
+        </SocialLink>
+      </SocialLinks>
+    </SidebarContainer>
       )}
     </>
   );

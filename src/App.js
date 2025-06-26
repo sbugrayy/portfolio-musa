@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { ThemeProvider } from './context/ThemeContext';
 import GlobalStyles from './styles/GlobalStyles';
 import Sidebar from './components/Sidebar';
-import Home from './components/Home';
-import About from './components/About';
-import WhatIDo from './components/WhatIDo';
-import Resume from './components/Resume';
-import Portfolio from './components/Portfolio';
-import Contact from './components/Contact';
+import Home from './pages/Home';
+import About from './pages/About';
+import WhatIDo from './pages/WhatIDo';
+import Resume from './pages/Resume';
+import Portfolio from './pages/Portfolio';
+import Contact from './pages/Contact';
 import Footer from './components/Footer';
 import './styles/global.css';
 
