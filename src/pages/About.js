@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 const AboutContainer = styled.div`
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
 `;
@@ -17,20 +17,34 @@ const Title = styled(motion.h2)`
 `;
 
 const Content = styled(motion.div)`
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: row;
   gap: 2rem;
-  
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1.5rem;
   }
 `;
 
 const TextBlock = styled(motion.div)`
+  flex: 1;
   background-color: var(--card-bg);
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 0;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
 `;
 
 const Paragraph = styled.p`

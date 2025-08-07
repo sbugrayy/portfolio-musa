@@ -16,14 +16,14 @@ const Title = styled(motion.h2)`
   text-align: center;
 `;
 
-const ResumeGrid = styled.div`
+const ResumeList = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 3rem;
+  gap: 1rem;
   margin-bottom: 3rem;
-  
+
   @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
   }
 `;
 
@@ -32,7 +32,6 @@ const ResumeSection = styled.div`
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
   [data-theme='dark'] & {
     background-color: var(--background-color);
   }
@@ -42,87 +41,22 @@ const SectionTitle = styled.h3`
   font-size: 1.8rem;
   color: var(--text-color);
   margin-bottom: 2rem;
-  position: relative;
-  padding-left: 1rem;
-  display: inline-block;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 25px;
-    background-color: var(--primary-color);
-  }
+  text-align: left;
 `;
 
-const Timeline = styled.div`
-  position: relative;
-  padding-left: 2rem;
-  margin-top: 2rem;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background-color: var(--primary-color);
-    opacity: 0.3;
-  }
-
-  @media (min-width: 992px) {
-    padding-left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    &::before {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-`;
-
-const TimelineItem = styled(motion.div)`
-  position: relative;
-  margin-bottom: 3rem;
-  width: 100%;
+const ItemBox = styled(motion.div)` 
   background-color: var(--card-bg);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-  @media (min-width: 992px) {
-    width: 45%;
-    margin-left: ${props => props.align === 'right' ? 'auto' : '0'};
-    margin-right: ${props => props.align === 'left' ? 'auto' : '0'};
-    padding: 1.5rem;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: -2rem;
-    top: 1.5rem;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-    border: 2px solid var(--background-color);
-    z-index: 1;
-
-    @media (min-width: 992px) {
-      left: ${props => props.align === 'right' ? '-0.5rem' : 'auto'};
-      right: ${props => props.align === 'right' ? 'auto' : '-0.5rem'};
-    }
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  text-align: left;
+  [data-theme='dark'] & {
+    background-color: var(--card-bg);
   }
 `;
 
-const TimelineDate = styled.span`
+const ItemDate = styled.span`
   display: inline-block;
   padding: 0.25rem 1rem;
   background-color: var(--primary-color);
@@ -132,14 +66,14 @@ const TimelineDate = styled.span`
   margin-bottom: 0.5rem;
 `;
 
-const TimelineTitle = styled.h4`
+const ItemTitle = styled.h4`
   font-size: 1.2rem;
   color: var(--text-color);
   margin-bottom: 0.5rem;
   font-weight: 600;
 `;
 
-const TimelineSubtitle = styled.h5`
+const ItemSubtitle = styled.h5`
   font-size: 1rem;
   color: var(--text-color);
   opacity: 0.8;
@@ -147,7 +81,7 @@ const TimelineSubtitle = styled.h5`
   font-weight: 500;
 `;
 
-const TimelineDescription = styled.p`
+const ItemDescription = styled.p`
   color: var(--text-color);
   font-size: 1rem;
   line-height: 1.6;
@@ -168,6 +102,7 @@ const DownloadButton = styled(motion.a)`
   margin: 0 auto;
   transition: all var(--transition-speed) ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 
   &:hover {
     background-color: #ff8c5a;
@@ -213,7 +148,7 @@ const experience = [
 const Resume = () => {
   const handleDownload = () => {
     // PDF dosyasının yolu
-    const pdfUrl = '/cv.pdf';
+    const pdfUrl = '/Musa_Yucesan_CV.pdf';
     const link = document.createElement('a');
     link.href = pdfUrl;
     link.download = 'Musa_Yucesan_CV.pdf';
@@ -232,51 +167,42 @@ const Resume = () => {
       >
         Özgeçmişim
       </Title>
-
-      <ResumeGrid>
+      <ResumeList>
         <ResumeSection>
           <SectionTitle>Eğitimim</SectionTitle>
-          <Timeline>
-            {education.map((item, index) => (
-              <TimelineItem
-                key={index}
-                align={index % 2 === 0 ? 'left' : 'right'}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-              >
-                <TimelineDate>{item.date}</TimelineDate>
-                <TimelineTitle>{item.title}</TimelineTitle>
-                <TimelineSubtitle>{item.subtitle}</TimelineSubtitle>
-                <TimelineDescription>{item.description}</TimelineDescription>
-              </TimelineItem>
-            ))}
-          </Timeline>
+          {education.map((item, index) => (
+            <ItemBox
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <ItemDate>{item.date}</ItemDate>
+              <ItemTitle>{item.title}</ItemTitle>
+              <ItemSubtitle>{item.subtitle}</ItemSubtitle>
+              <ItemDescription>{item.description}</ItemDescription>
+            </ItemBox>
+          ))}
         </ResumeSection>
-
         <ResumeSection>
           <SectionTitle>Deneyimim</SectionTitle>
-          <Timeline>
-            {experience.map((item, index) => (
-              <TimelineItem
-                key={index}
-                align={index % 2 === 0 ? 'left' : 'right'}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-              >
-                <TimelineDate>{item.date}</TimelineDate>
-                <TimelineTitle>{item.title}</TimelineTitle>
-                <TimelineSubtitle>{item.subtitle}</TimelineSubtitle>
-                <TimelineDescription>{item.description}</TimelineDescription>
-              </TimelineItem>
-            ))}
-          </Timeline>
+          {experience.map((item, index) => (
+            <ItemBox
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <ItemDate>{item.date}</ItemDate>
+              <ItemTitle>{item.title}</ItemTitle>
+              <ItemSubtitle>{item.subtitle}</ItemSubtitle>
+              <ItemDescription>{item.description}</ItemDescription>
+            </ItemBox>
+          ))}
         </ResumeSection>
-      </ResumeGrid>
-
+      </ResumeList>
       <ButtonContainer>
         <DownloadButton
           onClick={handleDownload}

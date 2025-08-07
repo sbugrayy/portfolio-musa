@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
     --sidebar-bg: #2a2a2a;
     --card-bg: #2a2a2a;
     --border-color: #404040;
+    --card-bg-dark: #2a2a2a;
   }
 
   * {
