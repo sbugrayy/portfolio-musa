@@ -7,35 +7,24 @@ on:
   release:
     types: [created]
 
-env:
-  SERVICE_ID: ${{ secrets.SERVICE_ID }}
-  TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
-  PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
-
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm test
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
-          registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React App with Env Variables
+        run: |
+          REACT_APP_SERVICE_ID=${{ secrets.SERVICE_ID }} \
+          REACT_APP_TEMPLATE_ID=${{ secrets.TEMPLATE_ID }} \
+          REACT_APP_PUBLIC_KEY=${{ secrets.PUBLIC_KEY }} \
+          npm run build

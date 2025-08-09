@@ -187,12 +187,26 @@ const SubmitButton = styled.button`
   }
 `;
 
+/*
 const StatusMessage = styled.p`
   grid-column: 1 / -1;
   text-align: center;
   margin-top: 1rem;
   color: ${props => props.success ? 'var(--success-color)' : 'var(--error-color)'};
   font-weight: 500;
+`;
+*/
+
+const StatusMessage = styled.p`
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+  color: ${props => props.$success ? 'var(--success-color)' : 'var(--error-color)'};
+  background-color: ${props => props.$success ? 'var(--success-bg)' : 'var(--error-bg)'};
+  border: 1px solid ${props => props.$success ? 'var(--success-border)' : 'var(--error-border)'};
 `;
 
 const Contact = () => {
@@ -212,10 +226,10 @@ const Contact = () => {
 
     try {
       await emailjs.sendForm(
-          process.env.SERVICE_ID,
-          process.env.TEMPLATE_ID,
+          process.env.REACT_APP_SERVICE_ID,
+          process.env.REACT_APP_TEMPLATE_ID,
           form.current,
-          process.env.PUBLIC_KEY
+          process.env.REACT_APP_PUBLIC_KEY
       );
 
       setStatus({
@@ -315,7 +329,7 @@ const Contact = () => {
               <Input
                   type="text"
                   id="name"
-                  name="from_name"
+                  name="name"
                   required
                   disabled={isSubmitting}
               />
@@ -326,18 +340,18 @@ const Contact = () => {
               <Input
                   type="email"
                   id="email"
-                  name="from_email"
+                  name="email"
                   required
                   disabled={isSubmitting}
               />
             </FormGroup>
 
             <FormGroup>
-              <Label htmlFor="subject">Konu</Label>
+              <Label htmlFor="title">Konu</Label>
               <Input
                   type="text"
-                  id="subject"
-                  name="subject"
+                  id="title"
+                  name="title"
                   required
                   disabled={isSubmitting}
               />
