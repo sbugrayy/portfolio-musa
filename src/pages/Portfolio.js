@@ -38,7 +38,7 @@ const Card = styled.div`
 
 const VideoCard = styled(Card)`
   padding: 3rem;
-  
+
   @media (max-width: 768px) {
     padding: 1.5rem;
   }
@@ -49,7 +49,7 @@ const VideoContent = styled.div`
   gap: 3rem;
   max-width: 1600px;
   margin: 0 auto;
-  
+
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 2rem;
@@ -62,7 +62,7 @@ const VideoTabs = styled.div`
   gap: 0.5rem;
   min-width: 200px;
   max-width: 200px;
-  
+
   @media (max-width: 768px) {
     flex-direction: row;
     overflow-x: auto;
@@ -112,7 +112,7 @@ const VideoContainer = styled.div`
 
 const ProjectsCard = styled(Card)`
   padding: 3rem;
-  
+
   @media (max-width: 768px) {
     padding: 1.5rem;
   }
@@ -166,41 +166,49 @@ const ProjectsGrid = styled.div`
   padding: 0 1rem;
 `;
 
-const ProjectCard = styled(motion.div)`
-  background-color: var(--background-color);
+// Burada ProjectCard artık <a> olarak tasarlandı ki dosya indirsin
+const ProjectCard = styled(motion.a)`
+  position: relative;
+  display: block;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all var(--transition-speed) ease;
+  cursor: pointer;
+  transition: transform var(--transition-speed) ease;
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   }
 `;
 
 const ProjectImage = styled.img`
   width: 100%;
-  height: 250px;
+  height: 300px;
   object-fit: cover;
 `;
 
-const ProjectInfo = styled.div`
-  padding: 1.5rem;
+// Hover'da görünen overlay
+const Overlay = styled.div`
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 1rem;
+  transition: opacity 0.3s ease;
+
+  ${ProjectCard}:hover & {
+    opacity: 1;
+  }
 `;
 
-const ProjectTitle = styled.h3`
-  font-size: 1.2rem;
-  color: var(--text-color);
-  margin-bottom: 0.5rem;
-`;
-
-const ProjectCategory = styled.span`
-  font-size: 0.9rem;
-  color: var(--primary-color);
-`;
-
-// Örnek veriler
+// Örnek veriler (dosya yolu da eklendi)
 const videos = [
   {
     id: 1,
@@ -222,21 +230,24 @@ const videos = [
 const projects = [
   {
     id: 1,
-    title: 'Understanding Relations Between Aydınlık Circle and Ankara Government 1921-1925',
+    title: 'Tez Çalışmam',
     category: 'Tarih',
-    image: '../assets/images/project1.jpg'
+    image: '/project1.jpg',
+    file: '/tez.docx' // public klasöründe olmalı
   },
   {
     id: 2,
     title: 'Proje 2',
     category: 'Deri İşleme',
-    image: '/project2.jpg'
+    image: '/project2.jpg',
+    file: '/proje2.docx'
   },
   {
     id: 3,
     title: 'Proje 3',
     category: 'Tarih',
-    image: '/project3.jpg'
+    image: '/project3.jpg',
+    file: '/proje3.pdf'
   }
 ];
 
@@ -247,87 +258,88 @@ const Portfolio = () => {
   const [activeCategory, setActiveCategory] = useState('Tümü');
 
   const filteredProjects = activeCategory === 'Tümü'
-    ? projects
-    : projects.filter(project => project.category === activeCategory);
+      ? projects
+      : projects.filter(project => project.category === activeCategory);
 
   return (
-    <PortfolioContainer>
-      <Title
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        Portfolyo
-      </Title>
+      <PortfolioContainer>
+        <Title
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+        >
+          Portfolyo
+        </Title>
 
-      <PortfolioGrid>
-        <VideoCard>
-          <VideoContent>
-            <VideoTabs>
-              {videos.map(video => (
-                <Tab
-                  key={video.id}
-                  active={activeVideo.id === video.id}
-                  onClick={() => setActiveVideo(video)}
-                >
-                  {video.title}
-                </Tab>
-              ))}
-            </VideoTabs>
-            <VideoContainer>
-              <iframe
-                src={activeVideo.url}
-                title={activeVideo.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </VideoContainer>
-          </VideoContent>
-        </VideoCard>
-
-        <ProjectsCard>
-          <ProjectsContent>
-            <FilterContainer>
-              <FilterLabel>
-                <FaFilter />
-                Kategoriler:
-              </FilterLabel>
-              {categories.map(category => (
-                <FilterButton
-                  key={category}
-                  active={activeCategory === category}
-                  onClick={() => setActiveCategory(category)}
-                >
-                  {category}
-                </FilterButton>
-              ))}
-            </FilterContainer>
-
-            <ProjectsGrid>
-              <AnimatePresence>
-                {filteredProjects.map(project => (
-                  <ProjectCard
-                    key={project.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ProjectImage src={project.image} alt={project.title} />
-                    <ProjectInfo>
-                      <ProjectTitle>{project.title}</ProjectTitle>
-                      <ProjectCategory>{project.category}</ProjectCategory>
-                    </ProjectInfo>
-                  </ProjectCard>
+        <PortfolioGrid>
+          <VideoCard>
+            <VideoContent>
+              <VideoTabs>
+                {videos.map(video => (
+                    <Tab
+                        key={video.id}
+                        active={activeVideo.id === video.id}
+                        onClick={() => setActiveVideo(video)}
+                    >
+                      {video.title}
+                    </Tab>
                 ))}
-              </AnimatePresence>
-            </ProjectsGrid>
-          </ProjectsContent>
-        </ProjectsCard>
-      </PortfolioGrid>
-    </PortfolioContainer>
+              </VideoTabs>
+              <VideoContainer>
+                <iframe
+                    src={activeVideo.url}
+                    title={activeVideo.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                />
+              </VideoContainer>
+            </VideoContent>
+          </VideoCard>
+
+          <ProjectsCard>
+            <ProjectsContent>
+              <FilterContainer>
+                <FilterLabel>
+                  <FaFilter />
+                  Kategoriler:
+                </FilterLabel>
+                {categories.map(category => (
+                    <FilterButton
+                        key={category}
+                        active={activeCategory === category}
+                        onClick={() => setActiveCategory(category)}
+                    >
+                      {category}
+                    </FilterButton>
+                ))}
+              </FilterContainer>
+
+              <ProjectsGrid>
+                <AnimatePresence>
+                  {filteredProjects.map(project => (
+                      <ProjectCard
+                          key={project.id}
+                          href={project.file}
+                          download
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.9 }}
+                          transition={{ duration: 0.3 }}
+                      >
+                        <ProjectImage src={project.image} alt={project.title} />
+                        <Overlay>{project.title}</Overlay>
+                      </ProjectCard>
+                  ))}
+                </AnimatePresence>
+              </ProjectsGrid>
+            </ProjectsContent>
+          </ProjectsCard>
+        </PortfolioGrid>
+      </PortfolioContainer>
   );
 };
 
-export default Portfolio; 
+export default Portfolio;
