@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
   :root {
     /* Light theme variables */
-    --primary-color: #ff6b35;
+    --primary-color: #CA382B;
     --secondary-color: #2a2a2a;
     --background-color: #ffffff;
     --text-color: #333333;
@@ -13,16 +13,16 @@ const GlobalStyles = createGlobalStyle`
     --transition-speed: 0.3s;
   }
 
-  [data-theme='dark'] {
-    --primary-color: #ff6b35;
-    --secondary-color: #ffffff;
-    --background-color: #1a1a1a;
-    --text-color: #ffffff;
-    --sidebar-bg: #2a2a2a;
-    --card-bg: #2a2a2a;
-    --border-color: #404040;
-    --card-bg-dark: #2a2a2a;
-  }
+   [data-theme='dark'] {
+       --primary-color: #CA382B;
+       --secondary-color: #ffffff;
+       --background-color: #121212;
+       --text-color: #E0E0E0;
+       --sidebar-bg: #121212;
+       --card-bg: #2C2C2C;
+       --border-color: #444444;
+       --card-bg-dark: #2C2C2C;
+   }
 
   * {
     margin: 0;

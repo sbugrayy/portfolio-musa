@@ -380,7 +380,7 @@ const Sidebar = () => {
       </NavLinks>
       <SocialLinks>
         <SocialLink
-          href="https://youtube.com"
+          href="https://youtube.com/@musayucesan8437?si=fJRmBz8kVSv_Oe0p"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.1 }}
@@ -389,7 +389,7 @@ const Sidebar = () => {
           <FaYoutube />
         </SocialLink>
         <SocialLink
-          href="https://instagram.com"
+          href="https://www.instagram.com/musa.yucesan?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.1 }}
@@ -398,7 +398,7 @@ const Sidebar = () => {
           <FaInstagram />
         </SocialLink>
         <SocialLink
-          href="https://linkedin.com"
+          href="https://www.linkedin.com/in/musa-y%C3%BCcesan-96983930b/"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.1 }}

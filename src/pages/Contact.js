@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaYoutube, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaEnvelope, FaMapMarkerAlt, FaYoutube, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 const ContactContainer = styled.div`
   max-width: 1200px;
@@ -34,7 +35,7 @@ const Content = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
-  
+
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1.5fr;
   }
@@ -59,7 +60,7 @@ const InfoItem = styled.div`
   align-items: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
-  
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -175,37 +176,66 @@ const SubmitButton = styled.button`
   width: fit-content;
   margin: 0 auto;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: #ff8c5a;
     transform: translateY(-2px);
   }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+`;
+
+const StatusMessage = styled.p`
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: 1rem;
+  color: ${props => props.success ? 'var(--success-color)' : 'var(--error-color)'};
+  font-weight: 500;
 `;
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
+  const form = useRef();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState({ show: false, success: false, message: '' });
 
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
+    setIsSubmitting(true);
+    setStatus({ show: false, success: false, message: '' });
+
+    try {
+      await emailjs.sendForm(
+          process.env.REACT_APP_EMAILJS_SERVICE_ID,
+          process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+          form.current,
+          process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      );
+
+      setStatus({
+        show: true,
+        success: true,
+        message: 'Mesajınız başarıyla gönderildi!'
+      });
+
+      // Formu sıfırla
+      form.current.reset();
+    } catch (error) {
+      console.error('Gönderme hatası:', error);
+      setStatus({
+        show: true,
+        success: false,
+        message: 'Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const containerVariants = {
@@ -230,111 +260,115 @@ const Contact = () => {
   };
 
   return (
-    <ContactContainer ref={ref}>
-      <Title
-        initial={{ opacity: 0, y: -20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8 }}
-      >
-        İletişim
-      </Title>
+      <ContactContainer ref={ref}>
+        <Title
+            initial={{ opacity: 0, y: -20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+        >
+          İletişim
+        </Title>
 
-      <Content
-        as={motion.div}
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-      >
-        <ContactInfo variants={itemVariants}>
-          <InfoSection>
-            <InfoItem>
-              <InfoIcon>
-                <FaEnvelope />
-              </InfoIcon>
-              <InfoText>musa.yucesan@example.com</InfoText>
-            </InfoItem>
-            
-            <InfoItem>
-              <InfoIcon>
-                <FaPhone />
-              </InfoIcon>
-              <InfoText>+90 555 123 4567</InfoText>
-            </InfoItem>
-            
-            <InfoItem>
-              <InfoIcon>
-                <FaMapMarkerAlt />
-              </InfoIcon>
-              <InfoText>Ankara, Türkiye</InfoText>
-            </InfoItem>
-          </InfoSection>
+        <Content
+            as={motion.div}
+            variants={containerVariants}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+        >
+          <ContactInfo variants={itemVariants}>
+            <InfoSection>
+              <InfoItem>
+                <InfoIcon>
+                  <FaEnvelope />
+                </InfoIcon>
+                <InfoText>yucesan639@gmail.com</InfoText>
+              </InfoItem>
 
-          <SocialLinks>
-            <SocialLink href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-              <FaYoutube />
-            </SocialLink>
-            <SocialLink href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <FaInstagram />
-            </SocialLink>
-            <SocialLink href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-              <FaLinkedin />
-            </SocialLink>
-          </SocialLinks>
-        </ContactInfo>
+              <InfoItem>
+                <InfoIcon>
+                  <FaMapMarkerAlt />
+                </InfoIcon>
+                <InfoText>Ankara, Türkiye</InfoText>
+              </InfoItem>
+            </InfoSection>
 
-        <Form variants={itemVariants} onSubmit={handleSubmit}>
-          <FormGroup>
-            <Label htmlFor="name">İsim</Label>
-            <Input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
+            <SocialLinks>
+              <SocialLink href="https://youtube.com/@musayucesan8437?si=fJRmBz8kVSv_Oe0p" target="_blank" rel="noopener noreferrer">
+                <FaYoutube />
+              </SocialLink>
+              <SocialLink href="https://www.instagram.com/musa.yucesan?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
+                <FaInstagram />
+              </SocialLink>
+              <SocialLink href="https://www.linkedin.com/in/musa-y%C3%BCcesan-96983930b/" target="_blank" rel="noopener noreferrer">
+                <FaLinkedin />
+              </SocialLink>
+            </SocialLinks>
+          </ContactInfo>
 
-          <FormGroup>
-            <Label htmlFor="email">E-posta</Label>
-            <Input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
+          <Form
+              ref={form}
+              variants={itemVariants}
+              onSubmit={handleSubmit}
+          >
+            <FormGroup>
+              <Label htmlFor="name">İsim</Label>
+              <Input
+                  type="text"
+                  id="name"
+                  name="from_name"
+                  required
+                  disabled={isSubmitting}
+              />
+            </FormGroup>
 
-          <FormGroup>
-            <Label htmlFor="subject">Konu</Label>
-            <Input
-              type="text"
-              id="subject"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
+            <FormGroup>
+              <Label htmlFor="email">E-posta</Label>
+              <Input
+                  type="email"
+                  id="email"
+                  name="from_email"
+                  required
+                  disabled={isSubmitting}
+              />
+            </FormGroup>
 
-          <FormGroup>
-            <Label htmlFor="message">Mesaj</Label>
-            <TextArea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
+            <FormGroup>
+              <Label htmlFor="subject">Konu</Label>
+              <Input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  required
+                  disabled={isSubmitting}
+              />
+            </FormGroup>
 
-          <SubmitButton type="submit">Gönder</SubmitButton>
-        </Form>
-      </Content>
-    </ContactContainer>
+            <FormGroup>
+              <Label htmlFor="message">Mesaj</Label>
+              <TextArea
+                  id="message"
+                  name="message"
+                  required
+                  disabled={isSubmitting}
+              />
+            </FormGroup>
+
+            <SubmitButton
+                type="submit"
+                disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Gönderiliyor...' : 'Gönder'}
+            </SubmitButton>
+
+            {status.show && (
+                <StatusMessage success={status.success}>
+                  {status.message}
+                </StatusMessage>
+            )}
+          </Form>
+        </Content>
+      </ContactContainer>
   );
 };
 
-export default Contact; 
+export default Contact;
