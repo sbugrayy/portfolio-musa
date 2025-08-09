@@ -222,9 +222,9 @@ const videos = [
 const projects = [
   {
     id: 1,
-    title: 'Proje 1',
+    title: 'Understanding Relations Between Aydınlık Circle and Ankara Government 1921-1925',
     category: 'Tarih',
-    image: '/project1.jpg'
+    image: '../assets/images/project1.jpg'
   },
   {
     id: 2,
