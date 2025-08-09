@@ -389,7 +389,7 @@ const Sidebar = () => {
           <FaYoutube />
         </SocialLink>
         <SocialLink
-          href="https://www.instagram.com/musa.yucesan?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+          href="https://www.instagram.com/musa.yucesan"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.1 }}
