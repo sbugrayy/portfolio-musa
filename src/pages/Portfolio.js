@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaFilter } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 
 const PortfolioContainer = styled.section`
   padding: 4rem 0;
@@ -12,94 +12,61 @@ const PortfolioContainer = styled.section`
 const Title = styled(motion.h2)`
   font-size: 2.5rem;
   color: var(--primary-color);
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-align: center;
 `;
 
-const PortfolioGrid = styled.div`
+/* Sekme container */
+const TabsContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  width: 100%;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
 `;
 
-const Card = styled.div`
-  background-color: var(--card-bg);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  width: 75%;
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    margin: 0;
-  }
-`;
-
-const VideoCard = styled(Card)`
-  padding: 3rem;
-
-  @media (max-width: 768px) {
-    padding: 1.5rem;
-  }
-`;
-
-const VideoContent = styled.div`
-  display: flex;
-  gap: 3rem;
-  max-width: 1600px;
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 2rem;
-  }
-`;
-
-const VideoTabs = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  min-width: 200px;
-  max-width: 200px;
-
-  @media (max-width: 768px) {
-    flex-direction: row;
-    overflow-x: auto;
-    padding-bottom: 1rem;
-    min-width: 100%;
-    max-width: 100%;
-  }
-`;
-
-const Tab = styled.button`
-  padding: 1rem;
+const TabButton = styled.button`
+  padding: 0.7rem 1.5rem;
   background-color: ${props => props.active ? 'var(--primary-color)' : 'transparent'};
   color: ${props => props.active ? 'white' : 'var(--text-color)'};
   border: 1px solid var(--primary-color);
-  border-radius: 4px;
+  border-radius: 30px;
   cursor: pointer;
   transition: all var(--transition-speed) ease;
-  text-align: left;
-  white-space: nowrap;
-  font-size: 0.9rem;
-
+  font-size: 1rem;
   &:hover {
     background-color: var(--primary-color);
     color: white;
   }
 `;
 
+/* Merkezi içerik konteynırı */
+const CenteredContent = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+`;
+
+/* Video Grid */
+const VideosGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin: 0 auto;
+`;
+
 const VideoContainer = styled.div`
-  flex: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+  }
+`;
+
+const VideoFrame = styled.div`
   position: relative;
   padding-bottom: 56.25%; /* 16:9 aspect ratio */
-  height: 0;
-  overflow: hidden;
-  border-radius: 8px;
-  background-color: #000;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
   iframe {
     position: absolute;
     top: 0;
@@ -110,63 +77,20 @@ const VideoContainer = styled.div`
   }
 `;
 
-const ProjectsCard = styled(Card)`
-  padding: 3rem;
-
-  @media (max-width: 768px) {
-    padding: 1.5rem;
-  }
-`;
-
-const ProjectsContent = styled.div`
-  max-width: 1600px;
-  margin: 0 auto;
-`;
-
-const FilterContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-  padding: 0 1rem;
-`;
-
-const FilterLabel = styled.span`
+const VideoTitle = styled.h3`
+  padding: 1rem;
+  text-align: center;
   color: var(--text-color);
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-
-  svg {
-    color: var(--primary-color);
-  }
+  margin: 0;
 `;
 
-const FilterButton = styled.button`
-  padding: 0.5rem 1rem;
-  background-color: ${props => props.active ? 'var(--primary-color)' : 'transparent'};
-  color: ${props => props.active ? 'white' : 'var(--text-color)'};
-  border: 1px solid var(--primary-color);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all var(--transition-speed) ease;
-
-  &:hover {
-    background-color: var(--primary-color);
-    color: white;
-  }
-`;
-
+/* Proje */
 const ProjectsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
-  padding: 0 1rem;
 `;
 
-// Burada ProjectCard artık <a> olarak tasarlandı ki dosya indirsin
 const ProjectCard = styled(motion.a)`
   position: relative;
   display: block;
@@ -174,8 +98,6 @@ const ProjectCard = styled(motion.a)`
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform var(--transition-speed) ease;
-
   &:hover {
     transform: translateY(-5px);
   }
@@ -187,7 +109,6 @@ const ProjectImage = styled.img`
   object-fit: cover;
 `;
 
-// Hover'da görünen overlay
 const Overlay = styled.div`
   position: absolute;
   inset: 0;
@@ -202,13 +123,64 @@ const Overlay = styled.div`
   text-align: center;
   padding: 0 1rem;
   transition: opacity 0.3s ease;
-
   ${ProjectCard}:hover & {
     opacity: 1;
   }
 `;
 
-// Örnek veriler (dosya yolu da eklendi)
+/* galeri */
+const GalleryGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+`;
+
+const GalleryImage = styled.img`
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const LightboxOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  flex-direction: column;
+  padding: 1rem;
+`;
+
+const DescriptionBox = styled.div`
+  background: white;
+  color: black;
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 600px;
+  text-align: center;
+  margin-top: 1rem;
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+`;
+
+/* Örnek veriler */
 const videos = [
   {
     id: 1,
@@ -228,38 +200,33 @@ const videos = [
 ];
 
 const projects = [
-  {
-    id: 1,
-    title: 'Tez Çalışmam',
-    category: 'Tarih',
-    image: '/project1.jpg',
-    file: '/tez.docx' // public klasöründe olmalı
-  },
-  {
-    id: 2,
-    title: 'Proje 2',
-    category: 'Deri İşleme',
-    image: '/project2.jpg',
-    file: '/proje2.docx'
-  },
-  {
-    id: 3,
-    title: 'Proje 3',
-    category: 'Tarih',
-    image: '/project3.jpg',
-    file: '/proje3.pdf'
-  }
+    { id: 1, title: 'Tez Çalışmam', image: '/project1.jpg', file: '/tez.docx' }
 ];
 
-const categories = ['Tümü', 'Tarih', 'Deri İşleme'];
+const galleryImages = [
+    { id: 1, src: '/galeri/DeriCuzdan1.jpg', description: 'Deri Cüzdan' },
+    { id: 2, src: '/galeri/DeriCuzdan12.jpg', description: 'Deri Cüzdan' },
+    { id: 3, src: '/galeri/DeriCuzdan3.jpg', description: 'Deri Cüzdan' },
+    { id: 4, src: '/galeri/DeriCuzdan4.jpg', description: 'Deri Cüzdan' },
+    { id: 5, src: '/galeri/DeriCuzdan5.jpg', description: 'Deri Cüzdan' },
+    { id: 6, src: '/galeri/DeriCuzdan6.jpg', description: 'Deri Cüzdan' },
+    { id: 7, src: '/galeri/DeriCuzdan11.jpg', description: 'Deri Cüzdan' },
+    { id: 8, src: '/galeri/DeriCuzdan8.jpg', description: 'Deri Cüzdan' },
+    { id: 9, src: '/galeri/DeriCuzdan9.jpg', description: 'Deri Cüzdan' },
+    { id: 10, src: '/galeri/DeriCuzdan10.jpg', description: 'Deri Cüzdan' },
+    { id: 11, src: '/galeri/DeriCuzdan7.jpg', description: 'Deri Kalemlik' },
+    { id: 12, src: '/galeri/DeriCuzdan2.jpg', description: 'Deri Kalemlik' },
+    { id: 13, src: '/galeri/DeriKemer1.jpg', description: 'Deri Kemer' },
+    { id: 14, src: '/galeri/DeriKemer2.jpg', description: 'Deri Kemer' },
+    { id: 14, src: '/galeri/Calisma1.jpg', description: 'Çalışma' },
+    { id: 15, src: '/galeri/Calisma2.jpg', description: 'Çalışma' },
+    { id: 16, src: '/galeri/Calisma3.jpg', description: 'Çalışma' },
+    { id: 17, src: '/galeri/Calisma4.jpg', description: 'Çalışma' },
+];
 
 const Portfolio = () => {
-  const [activeVideo, setActiveVideo] = useState(videos[0]);
-  const [activeCategory, setActiveCategory] = useState('Tümü');
-
-  const filteredProjects = activeCategory === 'Tümü'
-      ? projects
-      : projects.filter(project => project.category === activeCategory);
+  const [activeSection, setActiveSection] = useState('Videolar');
+  const [lightbox, setLightbox] = useState(null);
 
   return (
       <PortfolioContainer>
@@ -272,72 +239,119 @@ const Portfolio = () => {
           Portfolyo
         </Title>
 
-        <PortfolioGrid>
-          <VideoCard>
-            <VideoContent>
-              <VideoTabs>
-                {videos.map(video => (
-                    <Tab
-                        key={video.id}
-                        active={activeVideo.id === video.id}
-                        onClick={() => setActiveVideo(video)}
-                    >
-                      {video.title}
-                    </Tab>
-                ))}
-              </VideoTabs>
-              <VideoContainer>
-                <iframe
-                    src={activeVideo.url}
-                    title={activeVideo.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                />
-              </VideoContainer>
-            </VideoContent>
-          </VideoCard>
+        <TabsContainer>
+          {['Videolar', 'Projeler', 'galeri'].map(tab => (
+              <TabButton
+                  key={tab}
+                  active={activeSection === tab}
+                  onClick={() => setActiveSection(tab)}
+              >
+                {tab}
+              </TabButton>
+          ))}
+        </TabsContainer>
 
-          <ProjectsCard>
-            <ProjectsContent>
-              <FilterContainer>
-                <FilterLabel>
-                  <FaFilter />
-                  Kategoriler:
-                </FilterLabel>
-                {categories.map(category => (
-                    <FilterButton
-                        key={category}
-                        active={activeCategory === category}
-                        onClick={() => setActiveCategory(category)}
-                    >
-                      {category}
-                    </FilterButton>
-                ))}
-              </FilterContainer>
+        <AnimatePresence mode="wait">
+          {activeSection === 'Videolar' && (
+              <motion.div
+                  key="videos"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+              >
+                <CenteredContent>
+                  <VideosGrid>
+                    {videos.map(video => (
+                        <VideoContainer key={video.id}>
+                          <VideoFrame>
+                            <iframe
+                                src={video.url}
+                                title={video.title}
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            />
+                          </VideoFrame>
+                          <VideoTitle>{video.title}</VideoTitle>
+                        </VideoContainer>
+                    ))}
+                  </VideosGrid>
+                </CenteredContent>
+              </motion.div>
+          )}
 
-              <ProjectsGrid>
-                <AnimatePresence>
-                  {filteredProjects.map(project => (
-                      <ProjectCard
-                          key={project.id}
-                          href={project.file}
-                          download
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.9 }}
-                          transition={{ duration: 0.3 }}
-                      >
-                        <ProjectImage src={project.image} alt={project.title} />
-                        <Overlay>{project.title}</Overlay>
-                      </ProjectCard>
-                  ))}
-                </AnimatePresence>
-              </ProjectsGrid>
-            </ProjectsContent>
-          </ProjectsCard>
-        </PortfolioGrid>
+          {activeSection === 'Projeler' && (
+              <motion.div
+                  key="projects"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+              >
+                <CenteredContent>
+                  <ProjectsGrid>
+                    <AnimatePresence>
+                      {projects.map(project => (
+                          <ProjectCard
+                              key={project.id}
+                              href={project.file}
+                              download
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.9 }}
+                              transition={{ duration: 0.3 }}
+                          >
+                            <ProjectImage src={project.image} alt={project.title} />
+                            <Overlay>{project.title}</Overlay>
+                          </ProjectCard>
+                      ))}
+                    </AnimatePresence>
+                  </ProjectsGrid>
+                </CenteredContent>
+              </motion.div>
+          )}
+
+          {activeSection === 'galeri' && (
+              <motion.div
+                  key="gallery"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+              >
+                <CenteredContent>
+                  <GalleryGrid>
+                    {galleryImages.map(img => (
+                        <GalleryImage
+                            key={img.id}
+                            src={img.src}
+                            alt=""
+                            onClick={() => setLightbox(img)}
+                        />
+                    ))}
+                  </GalleryGrid>
+                </CenteredContent>
+
+                {lightbox && (
+                    <LightboxOverlay>
+                      <CloseButton onClick={() => setLightbox(null)}>
+                        <FaTimes />
+                      </CloseButton>
+                      <GalleryImage
+                          src={lightbox.src}
+                          alt=""
+                          style={{
+                            maxWidth: '90%',
+                            maxHeight: '80vh',
+                            height: 'auto',
+                            width: 'auto'
+                          }}
+                      />
+                      <DescriptionBox>{lightbox.description}</DescriptionBox>
+                    </LightboxOverlay>
+                )}
+              </motion.div>
+          )}
+        </AnimatePresence>
       </PortfolioContainer>
   );
 };

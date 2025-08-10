@@ -45,7 +45,7 @@ const SectionTitle = styled.h3`
 `;
 
 const ItemBox = styled(motion.div)` 
-  background-color: var(--card-bg);
+  background-color: white;
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -123,25 +123,47 @@ const ButtonContainer = styled.div`
 
 const education = [
   {
-    date: '2018 - 2022',
-    title: 'ASBÜ İngilizce Tarih',
-    subtitle: 'Ankara Sosyal Bilimler Üniversitesi',
-    description: 'Tarih alanında lisans eğitimi, İngilizce dilinde.'
+    date: '2019 - 2025',
+    title: 'ASBÜ İngilizce Tarih Bölümü Mezunu'
+  },
+  {
+    date: '2024 - 2025',
+    title: 'Öğretmenlik Formasyonu'
+  },
+  {
+    date: '2023',
+    title: 'Diksiyon Kursu',
+    subtitle: 'ASBÜ TÖMER'
   }
 ];
 
 const experience = [
   {
-    date: '2022 - Günümüz',
-    title: 'Deri El İşçiliği Sanatçısı',
-    subtitle: 'Serbest Çalışan',
-    description: 'Geleneksel ve modern deri işleme teknikleri ile özel tasarım ürünler üretimi.'
+    date: '2014 - Halen',
+    title: 'Youtube Kanalı Video Üreticiliği'
   },
   {
-    date: '2021 - 2022',
-    title: 'Tubitak',
-    subtitle: 'Akademik Araştırma',
-    description: 'Tarih alanında akademik araştırma ve yayın çalışmaları.'
+    date: '2022 - 2024',
+    title: 'ASBÜ Tarih Topluluğu Başkanlığı'
+  },
+  {
+    date: '2023',
+    title: 'Türkiye Ulusal Ajansı: Erasmus+ Projesi',
+    description: '“Geleceğin Yolu: Gençlerin Gözünden Gönüllülük”\n' +
+        ' projesi kapsamında 8-12 Mayıs 2023 tarihleri\n' +
+        ' arasında Ankara’da gerçekleştirilen İç Anadolu\n' +
+        ' Bölge Çlaıştayına katıldım.'
+  },
+  {
+    date: '2024',
+    title: 'TUBİTAK',
+    description: ' 25-30 Haziran 2024 tarihinde, 28. Junior Balkan\n' +
+        ' Olimpiyatları kapsamında Suudi Arabistan’dan\n' +
+        ' gelen heyete rehberlik yaptım.'
+  },
+  {
+    date: '2025',
+    title: 'ASBÜ Dericilik Kursu'
   }
 ];
 
