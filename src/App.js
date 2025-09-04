@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ThemeProvider } from './context/ThemeContext';
+import { FirebaseProvider } from './context/FirebaseContext';
 import GlobalStyles from './styles/GlobalStyles';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
@@ -48,8 +49,9 @@ const Section = styled.section`
 function App() {
   return (
     <ThemeProvider>
-      <GlobalStyles />
-      <AppContainer>
+      <FirebaseProvider>
+        <GlobalStyles />
+        <AppContainer>
         <Sidebar />
         <MainContent>
           <Section id="home">
@@ -72,7 +74,8 @@ function App() {
           </Section>
           <Footer />
         </MainContent>
-      </AppContainer>
+              </AppContainer>
+      </FirebaseProvider>
     </ThemeProvider>
   );
 }

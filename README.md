@@ -21,6 +21,7 @@ Modern ve responsive bir portfolyo web sitesi. React ve modern web teknolojileri
 - React Icons
 - React Scroll
 - React Intersection Observer
+- Firebase (Firestore, Storage, Analytics)
 
 ## Kurulum
 
@@ -44,15 +45,38 @@ npm start
 
 ## Yapılandırma
 
-### Profil Bilgileri
+### Firebase Environment Variables
 
-Profil bilgilerini güncellemek için ilgili bileşenlerdeki içerikleri düzenleyin:
+Vercel'de aşağıdaki environment variables'ları ekleyin:
 
-- `src/components/Home.js` - Ana sayfa içeriği
-- `src/components/About.js` - Hakkında bölümü
-- `src/components/Skills.js` - Yetkinlikler
-- `src/components/Portfolio.js` - Portfolyo öğeleri
-- `src/components/Contact.js` - İletişim bilgileri
+```
+REACT_APP_FIREBASE_API_KEY=your_api_key_here
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain_here
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id_here
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket_here
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id_here
+REACT_APP_FIREBASE_APP_ID=your_app_id_here
+REACT_APP_FIREBASE_MEASUREMENT_ID=your_measurement_id_here
+```
+
+### Firebase Kurulumu
+
+1. Firebase Console'da Firestore Database'i etkinleştirin
+2. Test mode'da başlatın
+3. Browser console'da verileri yükleyin:
+```javascript
+import { loadDataToFirebase } from './src/firebase/initData';
+loadDataToFirebase();
+```
+
+### Dinamik İçerik
+
+Artık tüm içerik Firebase'den geliyor:
+- Ana sayfa başlık ve alt başlık
+- Hakkında sayfası metinleri
+- İletişim bilgileri
+- CV eğitim ve deneyim listesi
+- Portfolyo videolar, projeler ve galeri
 
 ### Tema Renkleri
 

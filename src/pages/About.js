@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useFirebase } from '../context/FirebaseContext';
 
 const AboutContainer = styled.div`
   max-width: 1200px;
@@ -58,6 +59,9 @@ const Paragraph = styled.p`
 `;
 
 const About = () => {
+  const { data, loading } = useFirebase();
+  const aboutData = data?.about || {};
+  
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -101,30 +105,26 @@ const About = () => {
       >
         <TextBlock variants={itemVariants}>
           <Paragraph>
-            ASBÜ Tarih (İngilizce) bölümünden mezun oldum.
+            {aboutData.text1 || `ASBÜ Tarih (İngilizce) bölümünden mezun oldum.
             Ben, entelektüel tarih ve modernleşme süreçleri üzerine yoğunlaşan bir araştırmacı adayıyım.
             Akademik ilgim özellikle Osmanlı-Türkiye modernleşmesi, 17. ve 18. yüzyıl Osmanlı düşünce tarihi,
             Kemalist ideoloji ve sol çevreler arasındaki ilişkiler üzerine odaklanmaktadır.
             Lisans tez çalışmamda, 1921-1925 yılları arasında Aydınlık çevresi ile Ankara hükümeti arasındaki ideolojik ve politik etkileşimi inceleyerek,
             dönemin siyasi düşünce yapılarının dönüşümüne katkı sunmayı hedefledim.
             Tarihsel belgelerin analizi, düşünsel tartışmaların izini sürme ve çok dilli kaynak taraması konularında yetkinleşmeye çalışıyor; 
-            bu kapsamda akademik İngilizce’nin yanı sıra Osmanlı Türkçesi ve akademik düzeyde Rusça öğrenimine ağırlık veriyorum.
-            Araştırmalarımda tarih yazımı, siyasi düşünce tarihi ve entelektüel çevrelerin rolü gibi tematik alanları önceliklendiriyorum.
-        
-             
-          
-            
+            bu kapsamda akademik İngilizce'nin yanı sıra Osmanlı Türkçesi ve akademik düzeyde Rusça öğrenimine ağırlık veriyorum.
+            Araştırmalarımda tarih yazımı, siyasi düşünce tarihi ve entelektüel çevrelerin rolü gibi tematik alanları önceliklendiriyorum.`}
           </Paragraph>
         </TextBlock>
 
         <TextBlock variants={itemVariants}>
           <Paragraph>
-            Akademik çalışmalarımın yanında, zanaatla da ilgilenmekteyim.
+            {aboutData.text2 || `Akademik çalışmalarımın yanında, zanaatla da ilgilenmekteyim.
             Dericilikle amatör düzeyde uğraşıyor;
             el yapımı cüzdan ve benzeri ürünler tasarlayıp üretmekteyim.
             Bu yönelim, hem üretim estetiği hem de tarihsel zanaat kültürüne olan ilgimi besleyen önemli bir uğraştır.
             Araştırmacı merakı, tarihsel sezgi ve üretkenlik ilkeleri doğrultusunda akademik ve sanatsal yönlerimi bir arada geliştirerek,
-            özgün ve disiplinlerarası bir perspektif kazandırmaya çalışıyorum.
+            özgün ve disiplinlerarası bir perspektif kazandırmaya çalışıyorum.`}
           </Paragraph>
         </TextBlock>
       </Content>

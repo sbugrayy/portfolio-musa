@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes } from 'react-icons/fa';
+import { useFirebase } from '../context/FirebaseContext';
 
 const PortfolioContainer = styled.section`
   padding: 4rem 0;
@@ -225,8 +226,16 @@ const galleryImages = [
 ];
 
 const Portfolio = () => {
+  const { data, loading } = useFirebase();
+  const portfolioData = data?.portfolio || {};
+  
   const [activeSection, setActiveSection] = useState('Videolar');
   const [lightbox, setLightbox] = useState(null);
+  
+  // Firebase'den gelen verileri kullan, yoksa varsayılan verileri kullan
+  const videosData = portfolioData.videos || videos;
+  const projectsData = portfolioData.projects || projects;
+  const galleryData = portfolioData.gallery || galleryImages;
 
   return (
       <PortfolioContainer>
@@ -261,7 +270,7 @@ const Portfolio = () => {
               >
                 <CenteredContent>
                   <VideosGrid>
-                    {videos.map(video => (
+                    {videosData.map(video => (
                         <VideoContainer key={video.id}>
                           <VideoFrame>
                             <iframe
@@ -289,7 +298,7 @@ const Portfolio = () => {
                 <CenteredContent>
                   <ProjectsGrid>
                     <AnimatePresence>
-                      {projects.map(project => (
+                      {projectsData.map(project => (
                           <ProjectCard
                               key={project.id}
                               href={project.file}
@@ -320,7 +329,7 @@ const Portfolio = () => {
               >
                 <CenteredContent>
                   <GalleryGrid>
-                    {galleryImages.map(img => (
+                    {galleryData.map(img => (
                         <GalleryImage
                             key={img.id}
                             src={img.src}

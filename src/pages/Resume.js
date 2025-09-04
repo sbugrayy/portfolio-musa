@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaDownload } from 'react-icons/fa';
+import { useFirebase } from '../context/FirebaseContext';
 
 const ResumeContainer = styled.section`
   padding: 4rem 2rem;
@@ -168,6 +169,13 @@ const experience = [
 ];
 
 const Resume = () => {
+  const { data, loading } = useFirebase();
+  const resumeData = data?.resume || {};
+  
+  // Firebase'den gelen verileri kullan, yoksa varsayılan verileri kullan
+  const educationData = resumeData.education || education;
+  const experienceData = resumeData.experience || experience;
+
   const handleDownload = () => {
     // PDF dosyasının yolu
     const pdfUrl = '/Musa_Yucesan_CV.pdf';
@@ -192,7 +200,7 @@ const Resume = () => {
       <ResumeList>
         <ResumeSection>
           <SectionTitle>Eğitimim</SectionTitle>
-          {education.map((item, index) => (
+          {educationData.map((item, index) => (
             <ItemBox
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -209,7 +217,7 @@ const Resume = () => {
         </ResumeSection>
         <ResumeSection>
           <SectionTitle>Deneyimim</SectionTitle>
-          {experience.map((item, index) => (
+          {experienceData.map((item, index) => (
             <ItemBox
               key={index}
               initial={{ opacity: 0, y: 20 }}

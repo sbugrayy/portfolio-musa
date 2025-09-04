@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaEnvelope, FaMapMarkerAlt, FaYoutube, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { useFirebase } from '../context/FirebaseContext';
 
 const ContactContainer = styled.div`
   max-width: 800px;
@@ -55,6 +56,9 @@ const SocialLink = styled.a`
 `;
 
 const Contact = () => {
+  const { data, loading } = useFirebase();
+  const contactData = data?.contact || {};
+  
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -83,26 +87,26 @@ const Contact = () => {
           <motion.div variants={itemVariants}>
             <InfoItem>
               <InfoIcon><FaEnvelope /></InfoIcon>
-              <InfoText>yucesan639@gmail.com</InfoText>
+              <InfoText>{contactData.email || 'yucesan639@gmail.com'}</InfoText>
             </InfoItem>
           </motion.div>
 
           <motion.div variants={itemVariants}>
             <InfoItem>
               <InfoIcon><FaMapMarkerAlt /></InfoIcon>
-              <InfoText>Ankara, Türkiye</InfoText>
+              <InfoText>{contactData.location || 'Ankara, Türkiye'}</InfoText>
             </InfoItem>
           </motion.div>
 
           <motion.div variants={itemVariants}>
             <SocialLinks>
-              <SocialLink href="https://youtube.com/@musayucesan8437?si=fJRmBz8kVSv_Oe0p" target="_blank">
+              <SocialLink href={contactData.youtube || "https://youtube.com/@musayucesan8437?si=fJRmBz8kVSv_Oe0p"} target="_blank">
                 <FaYoutube />
               </SocialLink>
-              <SocialLink href="https://www.instagram.com/musa.yucesan" target="_blank">
+              <SocialLink href={contactData.instagram || "https://www.instagram.com/musa.yucesan"} target="_blank">
                 <FaInstagram />
               </SocialLink>
-              <SocialLink href="https://www.linkedin.com/in/musa-y%C3%BCcesan-96983930b/" target="_blank">
+              <SocialLink href={contactData.linkedin || "https://www.linkedin.com/in/musa-y%C3%BCcesan-96983930b/"} target="_blank">
                 <FaLinkedin />
               </SocialLink>
             </SocialLinks>

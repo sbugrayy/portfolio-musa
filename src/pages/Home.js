@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
+import { useFirebase } from '../context/FirebaseContext';
 
 const HomeContainer = styled.div`
   min-height: 100vh;
@@ -63,12 +64,25 @@ const ScrollButton = styled(motion.button)`
 `;
 
 const Home = () => {
+  const { data, loading } = useFirebase();
+  const homeData = data?.home || {};
+
   const scrollToAbout = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  if (loading) {
+    return (
+      <HomeContainer>
+        <Content>
+          <Title>Yükleniyor...</Title>
+        </Content>
+      </HomeContainer>
+    );
+  }
 
   return (
     <HomeContainer>
@@ -77,8 +91,8 @@ const Home = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <Title>Musa Yücesan</Title>
-        <Subtitle>ASBÜ Tarih (İngilizce) Mezunu & Deri El İşçiliği Sanatçısı</Subtitle>
+        <Title>{homeData.title || 'Musa Yücesan'}</Title>
+        <Subtitle>{homeData.subtitle || 'ASBÜ Tarih (İngilizce) Mezunu & Deri El İşçiliği Sanatçısı'}</Subtitle>
         <ScrollButton
           onClick={scrollToAbout}
           initial={{ opacity: 0 }}
