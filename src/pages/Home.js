@@ -24,27 +24,7 @@ const Content = styled(motion.div)`
   margin-top: -10vh; // Move content up
 `;
 
-const Title = styled.h1`
-  font-size: 3.5rem;
-  color: var(--primary-color);
-  margin: 0;
-  
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-`;
 
-const Subtitle = styled.p`
-  font-size: 1.5rem;
-  color: var(--text-color);
-  margin: 0;
-  max-width: 800px;
-  line-height: 1.6;
-  
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-  }
-`;
 
 // SplitText için özel stiller
 const SplitTextStyles = styled.div`
@@ -123,7 +103,20 @@ const Home = () => {
     return (
       <HomeContainer>
         <Content>
-          <Title>Yükleniyor...</Title>
+          <SplitText
+            text="Musa Yücesan"
+            tag="h1"
+            className="title-split"
+            delay={80}
+            duration={0.8}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 50, rotationX: 90 }}
+            to={{ opacity: 1, y: 0, rotationX: 0 }}
+            threshold={0.1}
+            rootMargin="-50px"
+            textAlign="center"
+          />
         </Content>
       </HomeContainer>
     );

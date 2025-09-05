@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ThemeProvider } from './context/ThemeContext';
 import { FirebaseProvider } from './context/FirebaseContext';
 import GlobalStyles from './styles/GlobalStyles';
+import LoadingScreen from './components/LoadingScreen';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -49,34 +50,44 @@ const Section = styled.section`
 `;
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+  };
+
   return (
     <ThemeProvider>
       <FirebaseProvider>
         <GlobalStyles />
-        <AppContainer>
-        <Sidebar />
-        <MainContent>
-          <Section id="home">
-            <Home />
-          </Section>
-          <Section id="about">
-            <About />
-          </Section>
-          <Section id="what-i-do">
-            <WhatIDo />
-          </Section>
-          <Section id="resume">
-            <Resume />
-          </Section>
-          <Section id="portfolio">
-            <Portfolio />
-          </Section>
-          <Section id="contact">
-            <Contact />
-          </Section>
-          <Footer />
-        </MainContent>
-              </AppContainer>
+        {isLoading ? (
+          <LoadingScreen onComplete={handleLoadingComplete} />
+        ) : (
+          <AppContainer>
+            <Sidebar />
+            <MainContent>
+              <Section id="home">
+                <Home />
+              </Section>
+              <Section id="about">
+                <About />
+              </Section>
+              <Section id="what-i-do">
+                <WhatIDo />
+              </Section>
+              <Section id="resume">
+                <Resume />
+              </Section>
+              <Section id="portfolio">
+                <Portfolio />
+              </Section>
+              <Section id="contact">
+                <Contact />
+              </Section>
+              <Footer />
+            </MainContent>
+          </AppContainer>
+        )}
       </FirebaseProvider>
     </ThemeProvider>
   );
