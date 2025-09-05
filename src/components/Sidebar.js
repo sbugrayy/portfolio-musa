@@ -367,116 +367,103 @@ const Sidebar = () => {
             delay: 0.5
           }}
         >
-          <motion.div
+          <ThemeToggle
+            onClick={toggleTheme}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.5 }}
           >
-            <ThemeToggle
-              onClick={toggleTheme}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {isDarkMode ? <FaSun /> : <FaMoon />}
-            </ThemeToggle>
-          </motion.div>
+            {isDarkMode ? <FaSun /> : <FaMoon />}
+          </ThemeToggle>
           
-          <motion.div
+          <ProfileImageContainer
+            as={motion.div}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
           >
-            <ProfileImageContainer>
-              <ProfileImage src={profileImage} alt="Musa Yücesan" />
-            </ProfileImageContainer>
-          </motion.div>
+            <ProfileImage src={profileImage} alt="Musa Yücesan" />
+          </ProfileImageContainer>
           
-          <motion.div
+          <Name
+            as={motion.h2}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.9, duration: 0.5 }}
           >
-            <Name>Musa Yücesan</Name>
-          </motion.div>
+            Musa Yücesan
+          </Name>
           
-          <motion.div
+          <NavLinks
+            as={motion.div}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1.0, duration: 0.5 }}
           >
-            <NavLinks>
-              {navItems.map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 1.1 + index * 0.1, duration: 0.5 }}
-                >
-                  <NavLink
-                    href={`#${item.id}`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {item.name}
-                  </NavLink>
-                </motion.div>
-              ))}
-            </NavLinks>
-          </motion.div>
+            {navItems.map((item, index) => (
+              <NavLink
+                key={item.id}
+                href={`#${item.id}`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                as={motion.a}
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 1.1 + index * 0.1, duration: 0.5 }}
+              >
+                {item.name}
+              </NavLink>
+            ))}
+          </NavLinks>
           
-          <motion.div
+          <SocialLinks
+            as={motion.div}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1.5, duration: 0.5 }}
           >
-            <SocialLinks>
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1.6, duration: 0.5 }}
-              >
-                <SocialLink
-                  href="https://youtube.com/@musayucesan8437?si=fJRmBz8kVSv_Oe0p"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FaYoutube />
-                </SocialLink>
-              </motion.div>
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1.7, duration: 0.5 }}
-              >
-                <SocialLink
-                  href="https://www.instagram.com/musa.yucesan"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FaInstagram />
-                </SocialLink>
-              </motion.div>
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1.8, duration: 0.5 }}
-              >
-                <SocialLink
-                  href="https://www.linkedin.com/in/musa-y%C3%BCcesan-96983930b/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FaLinkedin />
-                </SocialLink>
-              </motion.div>
-            </SocialLinks>
-          </motion.div>
+            <SocialLink
+              href="https://youtube.com/@musayucesan8437?si=fJRmBz8kVSv_Oe0p"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              as={motion.a}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.6, duration: 0.5 }}
+            >
+              <FaYoutube />
+            </SocialLink>
+            <SocialLink
+              href="https://www.instagram.com/musa.yucesan"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              as={motion.a}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.7, duration: 0.5 }}
+            >
+              <FaInstagram />
+            </SocialLink>
+            <SocialLink
+              href="https://www.linkedin.com/in/musa-y%C3%BCcesan-96983930b/"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              as={motion.a}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.8, duration: 0.5 }}
+            >
+              <FaLinkedin />
+            </SocialLink>
+          </SocialLinks>
     </SidebarContainer>
       )}
     </>

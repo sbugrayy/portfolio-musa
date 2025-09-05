@@ -344,7 +344,7 @@ const Portfolio = () => {
               </motion.div>
           )}
 
-          {activeSection === 'galeri' && (
+          {activeSection === 'Galeri' && (
               <motion.div
                   key="gallery"
                   initial={{ opacity: 0 }}
