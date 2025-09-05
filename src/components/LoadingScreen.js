@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 import SplitText from './SplitText';
 
 const LoadingContainer = styled.div`
@@ -9,13 +10,14 @@ const LoadingContainer = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background: var(--bg-color);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 9999;
   overflow: hidden;
+  transition: background-color 0.3s ease;
 `;
 
 const BackgroundPattern = styled.div`
@@ -25,9 +27,10 @@ const BackgroundPattern = styled.div`
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, var(--primary-color) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, var(--accent-color) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, var(--secondary-color) 0%, transparent 50%);
+  opacity: 0.1;
   animation: float 20s ease-in-out infinite;
   
   @keyframes float {
@@ -46,7 +49,8 @@ const HistoricalElements = styled.div`
 const AncientSymbol = styled(motion.div)`
   position: absolute;
   font-size: 2rem;
-  color: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  opacity: 0.1;
   font-family: 'Times New Roman', serif;
   
   &:nth-child(1) {
@@ -93,7 +97,7 @@ const LoadingContent = styled.div`
   
   .loading-title {
     font-size: 4rem;
-    color: #fff;
+    color: var(--primary-color);
     margin: 0;
     font-weight: 300;
     letter-spacing: 0.1em;
@@ -109,21 +113,11 @@ const LoadingContent = styled.div`
   }
 `;
 
-const LoadingTitle = styled.h1`
-  font-size: 4rem;
-  color: #fff;
-  margin: 0;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-`;
 
 const LoadingSubtitle = styled.p`
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-color);
+  opacity: 0.8;
   margin: 1rem 0 0 0;
   font-style: italic;
   
@@ -135,7 +129,8 @@ const LoadingSubtitle = styled.p`
 const ProgressBar = styled.div`
   width: 300px;
   height: 2px;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--text-color);
+  opacity: 0.2;
   border-radius: 1px;
   margin: 2rem auto 0;
   overflow: hidden;
@@ -147,7 +142,7 @@ const ProgressBar = styled.div`
 
 const ProgressFill = styled(motion.div)`
   height: 100%;
-  background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
   border-radius: 1px;
 `;
 
