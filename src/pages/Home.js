@@ -14,6 +14,37 @@ const HomeContainer = styled.div`
   position: relative;
   padding: 2rem;
   text-align: center;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/home.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.1;
+    z-index: -1;
+    animation: backgroundFloat 20s ease-in-out infinite;
+    
+    @media (max-width: 768px) {
+      opacity: 0.05;
+      filter: blur(1px);
+    }
+  }
+
+  @keyframes backgroundFloat {
+    0%, 100% { 
+      transform: scale(1) rotate(0deg); 
+    }
+    50% { 
+      transform: scale(1.05) rotate(0.5deg); 
+    }
+  }
 `;
 
 const Content = styled(motion.div)`

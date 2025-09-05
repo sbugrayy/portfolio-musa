@@ -7,6 +7,38 @@ const WhatIDoContainer = styled.section`
   padding: 4rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/whatido.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.08;
+    z-index: -1;
+    animation: backgroundFloat 30s ease-in-out infinite;
+    
+    @media (max-width: 768px) {
+      opacity: 0.04;
+      filter: blur(1px);
+    }
+  }
+
+  @keyframes backgroundFloat {
+    0%, 100% { 
+      transform: scale(1) rotate(0deg); 
+    }
+    50% { 
+      transform: scale(1.04) rotate(0.4deg); 
+    }
+  }
 `;
 
 const Title = styled(motion.h2)`
