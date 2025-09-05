@@ -5,19 +5,15 @@ import { seedData } from './seedData';
 // Firebase'e veri yükleme fonksiyonu
 export const initializeFirebaseData = async () => {
   try {
-    console.log('Firebase verileri yükleniyor...');
-    
     // Her sayfa için veriyi yükle
     for (const [pageName, pageData] of Object.entries(seedData)) {
       const docRef = doc(db, 'pages', pageName);
       await setDoc(docRef, pageData);
-      console.log(`${pageName} sayfası verisi yüklendi.`);
     }
     
-    console.log('Tüm veriler başarıyla yüklendi!');
     return true;
   } catch (error) {
-    console.error('Veri yükleme hatası:', error);
+    console.error('Firebase veri yükleme hatası:', error);
     return false;
   }
 };
@@ -34,10 +30,9 @@ export async function addPortfolioItem(itemData) {
       date: new Date(),
       ...itemData // Diğer özel alanlar
     });
-    console.log("Portfolyo öğesi başarıyla eklendi, ID: ", docRef.id);
     return docRef.id;
   } catch (e) {
-    console.error("Portfolyo öğesi eklerken hata oluştu: ", e);
+    console.error("Portfolyo öğesi ekleme hatası: ", e);
     return null;
   }
 }
@@ -47,6 +42,12 @@ export const loadDataToFirebase = () => {
   // Bu fonksiyonu browser console'da çalıştırabilirsin
   return initializeFirebaseData();
 };
+
+// Browser console'da çalıştırmak için global fonksiyon
+if (typeof window !== 'undefined') {
+  window.loadDataToFirebase = loadDataToFirebase;
+  window.initializeFirebaseData = initializeFirebaseData;
+}
 
 // Örnek portfolyo öğesi ekleme
 export const addSamplePortfolioItem = async () => {

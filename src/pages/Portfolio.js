@@ -226,16 +226,40 @@ const galleryImages = [
 ];
 
 const Portfolio = () => {
-  const { data, loading } = useFirebase();
+  const { data } = useFirebase();
   const portfolioData = data?.portfolio || {};
   
   const [activeSection, setActiveSection] = useState('Videolar');
   const [lightbox, setLightbox] = useState(null);
   
-  // Firebase'den gelen verileri kullan, yoksa varsayılan verileri kullan
-  const videosData = portfolioData.videos || videos;
-  const projectsData = portfolioData.projects || projects;
-  const galleryData = portfolioData.gallery || galleryImages;
+  // Firebase'den gelen verileri parse et
+  const parseVideos = (videosString) => {
+    if (!videosString) return videos;
+    return videosString.split('\n').map((line, index) => {
+      const [title, url] = line.split('|');
+      return { id: index + 1, title: title.trim(), url: url.trim() };
+    });
+  };
+
+  const parseProjects = (projectsString) => {
+    if (!projectsString) return projects;
+    return projectsString.split('\n').map((line, index) => {
+      const [title, image, file] = line.split('|');
+      return { id: index + 1, title: title.trim(), image: image.trim(), file: file.trim() };
+    });
+  };
+
+  const parseGallery = (galleryString) => {
+    if (!galleryString) return galleryImages;
+    return galleryString.split('\n').map((line, index) => {
+      const [description, src] = line.split('|');
+      return { id: index + 1, description: description.trim(), src: src.trim() };
+    });
+  };
+
+  const videosData = parseVideos(portfolioData.videos);
+  const projectsData = parseProjects(portfolioData.projects);
+  const galleryData = parseGallery(portfolioData.gallery);
 
   return (
       <PortfolioContainer>

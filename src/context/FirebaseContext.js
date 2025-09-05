@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { 
   collection, 
   doc, 
   getDoc, 
-  getDocs, 
   addDoc, 
   updateDoc, 
   deleteDoc,
@@ -27,7 +26,7 @@ export const FirebaseProvider = ({ children }) => {
   const [data, setData] = useState({});
 
   // Sayfa verilerini çek
-  const fetchPageData = async (pageName) => {
+  const fetchPageData = useCallback(async (pageName) => {
     try {
       const docRef = doc(db, 'pages', pageName);
       const docSnap = await getDoc(docRef);
@@ -35,18 +34,17 @@ export const FirebaseProvider = ({ children }) => {
       if (docSnap.exists()) {
         return docSnap.data();
       } else {
-        console.log(`No such document: ${pageName}`);
         return null;
       }
     } catch (err) {
-      console.error('Error fetching page data:', err);
+      console.error(`Firebase veri yükleme hatası (${pageName}):`, err);
       setError(err.message);
       return null;
     }
-  };
+  }, []);
 
   // Tüm sayfa verilerini çek
-  const fetchAllData = async () => {
+  const fetchAllData = useCallback(async () => {
     try {
       setLoading(true);
       const pages = ['home', 'about', 'contact', 'resume', 'portfolio'];
@@ -61,12 +59,12 @@ export const FirebaseProvider = ({ children }) => {
 
       setData(allData);
     } catch (err) {
-      console.error('Error fetching all data:', err);
+      console.error('Firebase veri yükleme hatası:', err);
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, [fetchPageData]);
 
   // Real-time dinleme
   const subscribeToPage = (pageName, callback) => {
@@ -119,7 +117,7 @@ export const FirebaseProvider = ({ children }) => {
 
   useEffect(() => {
     fetchAllData();
-  }, []);
+  }, [fetchAllData]);
 
   const value = {
     data,

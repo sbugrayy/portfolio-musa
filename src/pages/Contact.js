@@ -56,7 +56,7 @@ const SocialLink = styled.a`
 `;
 
 const Contact = () => {
-  const { data, loading } = useFirebase();
+  const { data } = useFirebase();
   const contactData = data?.contact || {};
   
   const [ref, inView] = useInView({

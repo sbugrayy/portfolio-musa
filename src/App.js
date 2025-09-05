@@ -12,6 +12,8 @@ import Portfolio from './pages/Portfolio';
 import Contact from './pages/Contact';
 import Footer from './components/Footer';
 import './styles/global.css';
+// Firebase veri yükleme fonksiyonlarını global olarak erişilebilir yap
+import './firebase/initData';
 
 const AppContainer = styled.div`
   display: flex;

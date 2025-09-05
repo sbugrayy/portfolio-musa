@@ -6,12 +6,14 @@ Modern ve responsive bir portfolyo web sitesi. React ve modern web teknolojileri
 
 - 🎨 Modern ve şık tasarım
 - 🌓 Açık/Koyu tema desteği
-- 📱 Tam responsive tasarım
+- 📱 Tam responsive tasarım (mobil hamburger menü)
 - ⚡ Hızlı sayfa yüklemeleri
 - 🎭 Yumuşak animasyonlar ve geçişler
 - 📝 İletişim formu
 - 🖼️ Portfolyo galerisi
 - 🎥 YouTube video entegrasyonu
+- 🔥 Firebase ile dinamik içerik yönetimi
+- 📄 CV indirme özelliği
 
 ## Teknolojiler
 

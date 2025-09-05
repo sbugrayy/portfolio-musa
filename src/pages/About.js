@@ -59,7 +59,7 @@ const Paragraph = styled.p`
 `;
 
 const About = () => {
-  const { data, loading } = useFirebase();
+  const { data } = useFirebase();
   const aboutData = data?.about || {};
   
   const [ref, inView] = useInView({

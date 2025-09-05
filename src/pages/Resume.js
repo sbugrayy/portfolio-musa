@@ -169,12 +169,28 @@ const experience = [
 ];
 
 const Resume = () => {
-  const { data, loading } = useFirebase();
+  const { data } = useFirebase();
   const resumeData = data?.resume || {};
   
-  // Firebase'den gelen verileri kullan, yoksa varsayılan verileri kullan
-  const educationData = resumeData.education || education;
-  const experienceData = resumeData.experience || experience;
+  // Firebase'den gelen verileri parse et
+  const parseEducation = (educationString) => {
+    if (!educationString) return education;
+    return educationString.split('\n').map((line, index) => {
+      const [date, title] = line.split('|');
+      return { id: index + 1, date: date.trim(), title: title.trim() };
+    });
+  };
+
+  const parseExperience = (experienceString) => {
+    if (!experienceString) return experience;
+    return experienceString.split('\n').map((line, index) => {
+      const [date, title] = line.split('|');
+      return { id: index + 1, date: date.trim(), title: title.trim() };
+    });
+  };
+
+  const educationData = parseEducation(resumeData.education);
+  const experienceData = parseExperience(resumeData.experience);
 
   const handleDownload = () => {
     // PDF dosyasının yolu
