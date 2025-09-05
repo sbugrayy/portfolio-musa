@@ -23,8 +23,8 @@ const HomeContainer = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('/home.jpg');
-    background-size: 100% 100%;
+    background-image: url('/home.webp');
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0.3;
