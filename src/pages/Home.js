@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
@@ -19,30 +19,26 @@ const HomeContainer = styled.div`
   &::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: -50%;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: 200%;
     background-image: url('/home.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     opacity: 0.3;
     z-index: -1;
-    animation: backgroundFloat 20s ease-in-out infinite;
+    will-change: transform;
+    transform: translateZ(0) translateY(var(--parallax-offset, 0px));
     
     @media (max-width: 768px) {
       opacity: 0.2;
       filter: blur(0.5px);
-    }
-  }
-
-  @keyframes backgroundFloat {
-    0%, 100% { 
-      transform: scale(1) rotate(0deg); 
-    }
-    50% { 
-      transform: scale(1.05) rotate(0.5deg); 
+      background-attachment: scroll;
+      top: -20%;
+      height: 140%;
     }
   }
 `;
@@ -114,6 +110,22 @@ const ScrollButton = styled(motion.button)`
 const Home = () => {
   const { data, loading } = useFirebase();
   const homeData = data?.home || {};
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (containerRef.current) {
+        const scrolled = window.pageYOffset;
+        const parallax = scrolled * 0.3; // Daha yavaş hareket
+        
+        // CSS custom property ile parallax efekti
+        containerRef.current.style.setProperty('--parallax-offset', `${parallax}px`);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToAbout = () => {
     const aboutSection = document.getElementById('about');
@@ -132,7 +144,7 @@ const Home = () => {
 
   if (loading) {
     return (
-      <HomeContainer>
+      <HomeContainer ref={containerRef}>
         <Content>
           <SplitText
             text="Musa Yücesan"
@@ -154,7 +166,7 @@ const Home = () => {
   }
 
   return (
-    <HomeContainer>
+    <HomeContainer ref={containerRef}>
       <SplitTextStyles>
         <Content
           initial={{ opacity: 0, y: 20 }}
