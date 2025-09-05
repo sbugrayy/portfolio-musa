@@ -19,26 +19,26 @@ const HomeContainer = styled.div`
   &::before {
     content: '';
     position: absolute;
-    top: -50%;
+    top: -30%;
     left: 0;
     right: 0;
-    height: 200%;
+    height: 160%;
     background-image: url('/home.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    opacity: 0.3;
+    opacity: 0.25;
     z-index: -1;
     will-change: transform;
     transform: translateZ(0) translateY(var(--parallax-offset, 0px));
     
     @media (max-width: 768px) {
-      opacity: 0.2;
+      opacity: 0.15;
       filter: blur(0.5px);
       background-attachment: scroll;
-      top: -20%;
-      height: 140%;
+      top: -15%;
+      height: 130%;
     }
   }
 `;
@@ -116,7 +116,7 @@ const Home = () => {
     const handleScroll = () => {
       if (containerRef.current) {
         const scrolled = window.pageYOffset;
-        const parallax = scrolled * 0.3; // Daha yavaş hareket
+        const parallax = scrolled * 0.1; // Çok daha yavaş hareket
         
         // CSS custom property ile parallax efekti
         containerRef.current.style.setProperty('--parallax-offset', `${parallax}px`);
