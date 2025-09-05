@@ -34,9 +34,19 @@ const HomeContainer = styled.div`
     transform: translateZ(0) translateY(var(--parallax-offset, 0px));
     
     @media (max-width: 768px) {
-      opacity: 0.15;
-      filter: blur(0.5px);
+      opacity: 0.2;
+      filter: blur(0.3px);
       background-attachment: scroll;
+      background-size: cover;
+      top: -10%;
+      height: 120%;
+    }
+    
+    @media (max-width: 480px) {
+      opacity: 0.18;
+      filter: blur(0.2px);
+      top: -5%;
+      height: 110%;
     }
   }
 `;
@@ -114,7 +124,8 @@ const Home = () => {
     const handleScroll = () => {
       if (containerRef.current) {
         const scrolled = window.pageYOffset;
-        const parallax = scrolled * 0.3; // Orijinal hız
+        const isMobile = window.innerWidth <= 768;
+        const parallax = scrolled * (isMobile ? 0.1 : 0.3); // Mobilde daha yavaş
         
         // CSS custom property ile parallax efekti
         containerRef.current.style.setProperty('--parallax-offset', `${parallax}px`);
@@ -122,7 +133,11 @@ const Home = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   const scrollToAbout = () => {
