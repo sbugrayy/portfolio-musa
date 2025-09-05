@@ -27,13 +27,13 @@ const HomeContainer = styled.div`
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.1;
+    opacity: 0.3;
     z-index: -1;
     animation: backgroundFloat 20s ease-in-out infinite;
     
     @media (max-width: 768px) {
-      opacity: 0.05;
-      filter: blur(1px);
+      opacity: 0.2;
+      filter: blur(0.5px);
     }
   }
 
