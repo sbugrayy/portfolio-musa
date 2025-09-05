@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaSun, FaMoon, FaYoutube, FaInstagram, FaLinkedin, FaBars, FaTimes } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
+import profileImage from '../assets/images/profile.jpg';
 
 const SidebarContainer = styled(motion.aside)`
   position: fixed;
@@ -303,7 +304,7 @@ const Sidebar = () => {
                   <FaTimes />
                 </CloseButton>
                 <ProfileImageContainer>
-                  <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
+                  <ProfileImage src={profileImage} alt="Musa Yücesan" />
                 </ProfileImageContainer>
                 <Name>Musa Yücesan</Name>
                 <NavLinks>
@@ -363,7 +364,7 @@ const Sidebar = () => {
             {isDarkMode ? <FaSun /> : <FaMoon />}
           </ThemeToggle>
       <ProfileImageContainer>
-        <ProfileImage src={require('../assets/images/profile.jpg')} alt="Musa Yücesan" />
+        <ProfileImage src={profileImage} alt="Musa Yücesan" />
       </ProfileImageContainer>
       <Name>Musa Yücesan</Name>
       <NavLinks>
