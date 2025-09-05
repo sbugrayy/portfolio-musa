@@ -176,16 +176,22 @@ const Resume = () => {
   const parseEducation = (educationString) => {
     if (!educationString) return education;
     return educationString.split('\n').map((line, index) => {
-      const [date, title] = line.split('|');
-      return { id: index + 1, date: date.trim(), title: title.trim() };
+      const parts = line.split('|');
+      const date = parts[0]?.trim() || '';
+      const title = parts[1]?.trim() || '';
+      const description = parts[2]?.trim() || '';
+      return { id: index + 1, date, title, description };
     });
   };
 
   const parseExperience = (experienceString) => {
     if (!experienceString) return experience;
     return experienceString.split('\n').map((line, index) => {
-      const [date, title] = line.split('|');
-      return { id: index + 1, date: date.trim(), title: title.trim() };
+      const parts = line.split('|');
+      const date = parts[0]?.trim() || '';
+      const title = parts[1]?.trim() || '';
+      const description = parts[2]?.trim() || '';
+      return { id: index + 1, date, title, description };
     });
   };
 
