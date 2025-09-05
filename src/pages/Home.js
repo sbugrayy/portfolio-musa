@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
 import { useFirebase } from '../context/FirebaseContext';
+import SplitText from '../components/SplitText';
 
 const HomeContainer = styled.div`
   min-height: 100vh;
@@ -23,7 +24,7 @@ const Content = styled(motion.div)`
   margin-top: -10vh; // Move content up
 `;
 
-const Title = styled(motion.h1)`
+const Title = styled.h1`
   font-size: 3.5rem;
   color: var(--primary-color);
   margin: 0;
@@ -33,7 +34,7 @@ const Title = styled(motion.h1)`
   }
 `;
 
-const Subtitle = styled(motion.p)`
+const Subtitle = styled.p`
   font-size: 1.5rem;
   color: var(--text-color);
   margin: 0;
@@ -42,6 +43,42 @@ const Subtitle = styled(motion.p)`
   
   @media (max-width: 768px) {
     font-size: 1.2rem;
+  }
+`;
+
+// SplitText için özel stiller
+const SplitTextStyles = styled.div`
+  .title-split {
+    font-size: 3.5rem;
+    color: var(--primary-color);
+    margin: 0;
+    font-weight: bold;
+    
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+  
+  .subtitle-split {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin: 0;
+    max-width: 800px;
+    line-height: 1.6;
+    
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
+  }
+  
+  .split-char {
+    display: inline-block;
+    transform-origin: center bottom;
+  }
+  
+  .split-word {
+    display: inline-block;
+    margin-right: 0.3em;
   }
 `;
 
@@ -74,6 +111,14 @@ const Home = () => {
     }
   };
 
+  const handleTitleAnimationComplete = () => {
+    console.log('Title animation completed!');
+  };
+
+  const handleSubtitleAnimationComplete = () => {
+    console.log('Subtitle animation completed!');
+  };
+
   if (loading) {
     return (
       <HomeContainer>
@@ -86,22 +131,54 @@ const Home = () => {
 
   return (
     <HomeContainer>
-      <Content
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <Title>{homeData.title || 'Musa Yücesan'}</Title>
-        <Subtitle>{homeData.subtitle || 'ASBÜ Tarih (İngilizce) Mezunu & Deri El İşçiliği Sanatçısı'}</Subtitle>
-        <ScrollButton
-          onClick={scrollToAbout}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
+      <SplitTextStyles>
+        <Content
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          <FaChevronDown />
-        </ScrollButton>
-      </Content>
+          <SplitText
+            text={homeData.title || 'Musa Yücesan'}
+            tag="h1"
+            className="title-split"
+            delay={80}
+            duration={0.8}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 50, rotationX: 90 }}
+            to={{ opacity: 1, y: 0, rotationX: 0 }}
+            threshold={0.1}
+            rootMargin="-50px"
+            textAlign="center"
+            onLetterAnimationComplete={handleTitleAnimationComplete}
+          />
+          
+          <SplitText
+            text={homeData.subtitle || 'ASBÜ Tarih (İngilizce) Mezunu & Deri El İşçiliği Sanatçısı'}
+            tag="p"
+            className="subtitle-split"
+            delay={120}
+            duration={0.6}
+            ease="power2.out"
+            splitType="words"
+            from={{ opacity: 0, y: 30, scale: 0.8 }}
+            to={{ opacity: 1, y: 0, scale: 1 }}
+            threshold={0.1}
+            rootMargin="-50px"
+            textAlign="center"
+            onLetterAnimationComplete={handleSubtitleAnimationComplete}
+          />
+          
+          <ScrollButton
+            onClick={scrollToAbout}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 0.5 }}
+          >
+            <FaChevronDown />
+          </ScrollButton>
+        </Content>
+      </SplitTextStyles>
     </HomeContainer>
   );
 };
